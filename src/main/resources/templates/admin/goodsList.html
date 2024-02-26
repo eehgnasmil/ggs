@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="goodsList">
+	<ul class="sub_menu f20	">
+                    <li><a th:href="@{/admin/goodsList(category=${0})}">All</a></li>
+                    <li><a th:href="@{/admin/goodsList(category=${1})}">Outer</a></li>
+                    <li><a th:href="@{/admin/goodsList(category=${2})}">Top</a></li>
+                    <li><a th:href="@{/admin/goodsList(category=${3})}">Bottom</a></li>
+                    <li><a th:href="@{/admin/goodsList(category=${4})}">Accessory</a></li>
+                </ul>
+    <div th:replace="~{/goods/goodslist :: goodsListFragment}"></div>
+</div>
+</html>

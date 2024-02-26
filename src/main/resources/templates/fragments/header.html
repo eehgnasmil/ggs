@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:fragment="header">
+	<link rel="stylesheet" type="text/css" href="/layout/css/layout.css">
+	<link rel="stylesheet" type="text/css" href="/layout/css/header.css">
+	<link rel="stylesheet" type="text/css" href="/layout/css/left.css">
+	<div class="headerStatic">
+		<div style="position: sticky; top:0;">
+			<div class="menuBtn">
+				<img src="" alt="menu" onclick="extendMenu()">
+			</div>
+			<div class="logo">
+				<a href="/"><img src="/img/logo.png" alt="logo"></a>
+			</div>
+			<div class="info">
+						<a href="/mypage/myList" sec:authorize="hasRole('ROLE_USER')">마이페이지</a>				  
+						<a href="/admin/dashboard" sec:authorize="hasRole('ROLE_USER')">관리자페이지</a>				  
+			</div>
+		</div>
+	</div><div class="headerExtend">
+		<div th:insert="~{fragments/left :: mainLeft}" style="position: sticky; top: 0;"></div>
+	</div>
+
+	<script>
+		function extendMenu(e){
+			var extend = $('.headerExtend');
+			var filter = $('#contentFilter');
+			var currentWidth = extend.width();
+
+			// 만약 현재 너비가 0이면 300px로, 그렇지 않으면 0으로 설정
+			extend.css("width", currentWidth === 0 ? '300px' : '0');
+			filter.css("width", currentWidth === 0 ? '100%' : '0');
+			filter.css("height", currentWidth === 0 ? '100%' : '0');
+			// 너비가 0이면 overlay를 숨기고, 그렇지 않으면 표시
+			extend.css("overflow", currentWidth === 0 ? 'visible' : 'hidden');
+
+		}
+	</script>
+</header>
+</html>

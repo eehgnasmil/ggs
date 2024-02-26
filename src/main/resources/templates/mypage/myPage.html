@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/mypagelayout}">
+<div layout:fragment="content" style="position: relative;">
+	<!--joincss-->
+	<link rel="stylesheet" type="text/css" href="/layout/css/left.css">	
+	<link rel="stylesheet" type="text/css" href="/mypage/css/mypage.css">
+	<!--joincss-->
+	<div id="myContent">
+		<div class="myContentWrap">
+			<div th:replace="~{/mypage/__${title}__ :: __${title}__}"></div>
+		</div>
+	</div>
+</div>
+</html>

@@ -1,0 +1,25 @@
+.overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* 검은색 배경에 투명도를 조절합니다. */
+    display: none;
+}
+.headerStatic{width:100px; height: 100%; display: inline-block; background: #f0ebda; border-right: 3px solid #073f01;}
+.headerStatic .menuBtn{}
+.headerStatic .logo{transform: rotate( -90deg ); margin-top:200px;}
+.headerExtend{width:0px; transition: width 0.4s ease; overflow: hidden; height: 100%; vertical-align: top; background:#FBF9F3; display: inline-block;}
+#contentFilter{
+	width: 0px;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* 검은색 배경에 투명도를 조절합니다. */
+    z-index: 999; /* 필요에 따라 다른 레이어 값으로 조절하세요. */
+}
+.pagination {padding:50px 0 ; text-align: center;}
+.pagination .active{border:1px solid black; background-color: black; border-radius:50px; color:white;}
+.pagination .active a{color:white;}
+.pagination li{display: inline-block; width:25px; height:25px; line-height: 25px; }
+.pagination li a{text-decoration: none; color: black;}

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="myResign">
+	<link rel="stylesheet" type="text/css" href="/mypage/css/resign.css">
+	<div class="myModify_wrap">
+		<ul class="join_form">
+			<li class="modifyPwForm">
+				<label>패스워드</label>
+				<input type="password" id="password1" th:name="${member.id}" class="">
+				<button id="signUpBtn" class="modiForm" onclick="prevPwCheck2()">탈퇴</button>
+			</li>
+		</ul>
+	</div>
+
+</div>
+</html>

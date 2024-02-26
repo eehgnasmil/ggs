@@ -1,0 +1,33 @@
+
+.swiper {
+  width: 90%;
+}
+
+.swiper-slide {
+  overflow: hidden;
+  height: 100%;
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  position: absolute;
+  top:0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.i-hover{display:none;}
+.mySwiper2:hover .i-hover{display:block;}
+.modalOut{position: absolute; right:2.5%; top:2.5%;}
+.goodsL li{padding:5px 0;}
+.likeBtn{right: 5%;
+    bottom: 5%;
+    position: absolute;
+    z-index: 99;
+    display: inline-block;}

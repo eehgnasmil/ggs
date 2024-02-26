@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">        
+<div layout:fragment="content">
+<!--findId_Css-->
+<link rel="stylesheet" type="text/css" href="/member/css/findId.css">
+<!--findId_Css-->
+	<!--		
+	# 아이디 찾기
+	1 ) 이메일 입력
+	2 ) 이메일 등록여부 확인 Y / N
+	3 ) y -> 이메일로 아이디 보냄
+		N -> alert이메일 확인 하셈!
+	-->		
+
+    <div class="content-title">
+        <h4>아이디 찾기</h4>
+    </div>
+    	<ul>
+		    <li class="emailForm">
+		        <input type="email" id="email" name="email" class="" placeholder="이메일을 입력하세요">
+		        <span>@</span>
+		        <input type="text" id="customEmail" name="customEmail" placeholder="직접 입력" style="display: none;">
+		        <select id="emailForm" name="emailForm" onchange="updateInputValue()">
+		            <option value="" selected="selected">직접입력</option>
+		            <option value="naver.com">네이버</option>
+		            <option value="gmail.com">구글</option>
+		            <option value="hanmail.net">다음</option>
+		        </select>
+				<br>
+		        <button type="button" id="checkBtn" name="checkBtn" onclick="check(this)">이메일 확인</button>
+		        <br>
+		        <div id="mail_number" name="mail_number" style="display: none">
+		            <input type="text" name="number" id="number" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
+		            <input type="hidden" id="Confirm" name="Confirm" style="display: none" value="">
+		            <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
+		        </div>
+		    </li>
+		</ul>
+	
+    <!--script-->
+    <script type="text/javascript" th:src="@{/member/js/findId.js}"></script>
+    <script type="text/javascript" th:src="@{/member/js/emailCheck.js}"></script>
+    <!--script-->
+</div>

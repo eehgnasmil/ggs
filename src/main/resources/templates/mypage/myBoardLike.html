@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="myBoardLike">
+	<div class="myModify_wrap">
+		<h2>나의 '좋아요' 게시판 목록</h2>
+		<ul>
+			<li th:each="boardLike:${boardlike}">
+				<ul>
+					<li>게시판 ID: <a th:href="@{/board/board_detail/{idx}(idx=${boardLike.idx})}" th:text="${boardLike.idx}"></a></li>
+					<li>제목: <span th:text="${boardLike.title}"></span></li>
+					<li th:each="imageUrl : ${boardLike.imageUrls}">
+						<img th:src="${imageUrl}" />
+					</li>
+					<li>카테고리: <span th:text="${boardLike.category}"></span></li>
+					<li>작성자: <span th:text="${boardLike.nickname}"></span></li>
+					<li>조회수: <span th:text="${boardLike.viewcount}"></span></li>
+					<li>수정 날짜: <span th:text="${#temporals.format(boardLike.modifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></span></li>
+				</ul>
+			</li>
+		</ul>
+		<div th:if="${!boardlike.isEmpty()}">
+			<a th:href="@{|/mypage/myBoardLike?page=${boardlike.number-1}|}" th:if="${boardlike.hasPrevious()}">이전</a>
+			<a th:href="@{|/mypage/myBoardLike?page=${boardlike.number+1}|}" th:if="${boardlike.hasNext()}">다음</a>
+		</div>
+	</div>	
+</div>
+</html>
