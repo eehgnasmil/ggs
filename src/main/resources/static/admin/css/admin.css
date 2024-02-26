@@ -1,0 +1,19 @@
+.content {
+    padding: 40px 0 0 0;
+    background-color: #FBF9F3;
+    flex: 1;
+    position: relative;
+    display: flex;
+    vertical-align: top;
+}
+.Left_menu ul {
+    padding: 0px 30px;
+}
+.contents{flex:1; max-width: 1300px;}
+#myContent{width:100%;}
+.main_menu {
+    color: #0e3c06;
+    font-size: 25px;
+    font-weight: 700;
+    padding: 10px 0;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="teditor">
+    <!-- TOAST UI Editor CDN(CSS) -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css" />
+    <!-- TOAST UI Editor CDN(JS) -->
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <div id="editor"></div>
+    <script th:inline="javascript">
+
+        /*<![CDATA[*/
+        var originalData = /*[[${board != null ? board.detail : goods != null ? goods.detail : ''}]]*/ '';
+        var initialValue = originalData || '';
+        window.editor = new toastui.Editor({
+            el: document.querySelector('#editor'),
+            previewStyle: 'vertical',
+            previewHighlight: false,
+            // 기본설정 미리보기 있는
+            // initialEditType: 'markdown',
+            initialEditType: 'wysiwyg',
+
+            height: '700px',
+            language: 'ko',
+            initialValue: initialValue, // 원본 데이터 설정
+            hooks: {
+                async addImageBlobHook(blob, callback) {
+                    try {
+                        const formData = new FormData();
+                        formData.append('image', blob);
+
+                        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content'); // Get CSRF token from meta tag
+                        const response = await fetch('/tui-editor/image-upload', {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-CSRF-TOKEN': csrfToken, // CSRF 토큰 추가
+                            },
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('이미지 업로드 실패');
+                        }
+
+
+                        const filename = await response.text();
+                        const imageUrl = `/tui-editor/image-print?filename=${filename}`;
+                        callback(imageUrl, 'image alt attribute');
+                        const a = document.querySelector('#editor').getElementsByClassName('toastui-editor-contents p');
+                        console.log(a)
+                    } catch (error) {
+                        console.error('업로드 실패: ', error.message);
+                    }
+                }
+            }
+
+        });
+        /*]]>*/
+
+        function performIndentation() {
+            console.log(imageTag)
+            const imageElement = new DOMParser().parseFromString(imageTag, 'text/html').body.firstChild;
+
+            const parentElement = imageElement.parentNode.parentNode;
+
+            // <p> 요소 생성
+            const paragraphElement = document.createElement("p");
+
+            // 이미지 태그 뒤에 <p> 요소 추가
+            parentElement.appendChild(paragraphElement);
+
+            console.log('들여쓰기 수행');
+        }
+    </script>
+</div>
+
+</html>

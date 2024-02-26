@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content">
+    <h1>update</h1>
+    <form id="updateForm" th:action="@{/board/board_update/{idx}(idx=${board.idx})}" th:object="${board}" method="POST">
+        <select id="category">
+            <option value="" selected>카테고리를 선택해주세요</option>
+            <option value="hip">hip</option>
+            <option value="modern">modern</option>
+        </select>
+        <ul>
+            <li>착용제품</li>
+            <li>
+                <input type="checkbox" id="chkOuterwear" onchange="toggleTextbox(this, 'outerwearInput')"> 아우터웨어
+                <input type="text" id="outerwearInput" placeholder="outerwear" style="display: none;">
+            </li>
+            <li>
+                <input type="checkbox" id="chkTop" onchange="toggleTextbox(this, 'topInput')"> 상의
+                <input type="text" id="topInput" placeholder="top" style="display: none;">
+            </li>
+            <li>
+                <input type="checkbox" id="chkBottom" onchange="toggleTextbox(this, 'bottomInput')"> 하의
+                <input type="text" id="bottomInput" placeholder="bottom" style="display: none;">
+            </li>
+            <li>
+                <input type="checkbox" id="chkShoes" onchange="toggleTextbox(this, 'shoesInput')"> 신발
+                <input type="text" id="shoesInput" placeholder="shoes" style="display: none;">
+            </li>
+            <li>
+                <input type="checkbox" id="chkAcc" onchange="toggleTextbox(this, 'accInput')"> 액세서리
+                <input type="text" id="accInput" placeholder="acc" style="display: none;">
+            </li>
+            <li>제목</li>
+            <li><input type="text" th:field="*{title}" id="title" /></li>
+            <li>작성자</li>
+            <li th:text="${board.nickname}"></li>
+            <li>
+                <div th:insert="~{fragments/hashtag :: hashtag}"></div>
+            </li>
+            <li>내용</li>
+            <li>
+                <div th:replace="~{fragments/teditor :: teditor}" th:with="board=${board}"></div>
+            </li>
+        </ul>
+        <input type="hidden" th:field="*{idx}" id="idx" />
+        <button type="button" onclick="updatesave()">저장</button>
+    </form>
+    <a th:href="@{/board/board_list}">뒤로가기</a>
+    <script th:src="@{/board/js/update.js}"></script>
+</div>
+
+</html>

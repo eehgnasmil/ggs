@@ -1,0 +1,52 @@
+.contents{
+	margin: 0 auto;
+    width: 530px;
+    }
+.p10{padding:10px 0; color:red; font-size: 10px;}
+input{border:none; background:none; padding:15px 0; border-bottom: 1px solid black; width: 100%;}
+input:focus{    border-color:green; outline: none; }
+input::placeholder {color:#403f3f; font-weight: 600; }
+input::-webkit-input-placeholder {color:#403f3f; font-weight: 600;}
+input:-ms-input-placeholder {color:#403f3f; font-weight: 600;}
+.content-title{text-align: center; font-size: 30px; padding: 50px 0;}    
+.join_wrap{ border: 2px solid black; padding:30px 30px; border-radius: 20px;}
+.join_wrap .join_form{}
+.join_wrap .join_form li{}
+
+.phoneForm{padding:10px 0; border-bottom: 1px solid black; }
+.phoneForm input{width: 25%; border-bottom: 1px solid #c9bcbc; padding:10px 0;}
+.phoneForm input::placeholder {padding-left:20px;}
+.phoneForm input::-webkit-input-placeholder {color:#403f3f; font-weight: 600;}
+.phoneForm input:-ms-input-placeholder {color:#403f3f; font-weight: 600;}
+.phoneForm span{vertical-align: middle; color: #403f3f; font-size: 15px; font-weight: 600;}
+
+.emailForm{padding:10px 0; border-bottom: 1px solid black; }
+.emailForm input{border-bottom: 1px solid #c9bcbc; padding:10px 0;}
+.emailForm input::placeholder {padding-left:20px;}
+.emailForm input::-webkit-input-placeholder {color:#403f3f; font-weight: 600;}
+.emailForm input:-ms-input-placeholder {color:#403f3f; font-weight: 600;}
+.emailForm span{vertical-align: middle; color: #403f3f; font-size: 15px; font-weight: 600;}
+.emailForm .e1{display: inline-block; width: 25%;}
+.emailForm .e2{display: inline-block; width: 35%;}
+#emailForm{display: inline-block; border-radius: 8px;
+    padding: 5px 10px;
+    color: white;
+    background: black;
+    display: inline-block;}
+#sendBtn{margin-top:20px ; float: right; display: inline-block; border-radius: 8px; width: 98px; margin-right: 6px;
+    padding: 3px 10px;
+    color: white;
+    background: black;
+    display: inline-block;}    
+#mail_number{margin-top:20px;}
+.join_wrap .join_form li{overflow: hidden;}
+#signUpBtn{    border: none;
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+    background:#073f01;
+    height: 46px;
+    display: block;
+    width: 150px;
+    margin: 30px auto 0 auto;
+    border-radius: 10px;}

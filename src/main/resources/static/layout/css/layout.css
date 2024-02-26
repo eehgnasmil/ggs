@@ -1,0 +1,38 @@
+header{z-index:100; display: inline-block;}
+footer{position:absolute; bottom:0;}	
+layout{height: max-content; display: block; display: flex; min-height: 100vh;}
+body{font-weight: 500;}
+h4{font-weight: 900; font-size: 36px; letter-spacing: 0px;}
+.content{
+	min-height: 100vh;
+	padding:40px;
+	background-color: #f0ebda;
+	flex:1;
+    position: relative;	
+    display: inline-block;
+    vertical-align: top;
+    overflow-y: auto;}
+    
+#myContent{display:inline-block; vertical-align: top; width:80.7%;}
+/*메인*/
+
+/*리스트 폼*/
+.section{position:absolute; right:0; top:200px; width:80%;}
+.gallery {}
+.gallery ul{text-align: left; padding:10px;}
+.gallery ul li{width:24%; display: inline-block; vertical-align: top;}
+.gallery ul li ul{width:100%; }
+.gallery ul li ul li{width:100%;}
+
+/*프로필 hover효과*/
+.profile img:hover{}
+.profile .nick:hover{}
+
+.title{font-size: 40px; padding:20px 0;}
+.likeBtn{width:25px; height:25px; background-size: 25px 25px; display: inline-block;}
+.gname{}
+.gname a{text-decoration: none; color: black; font-size: 20px; font-weight: 500;}
+.summary{color: #878987; font-size: 14px; font-weight: 400;}
+.sellingPrice{ text-decoration: line-through; font-size: 15px; font-weight: 500;}
+.discountPrice{font-weight: 600;font-size: 17px;}
+.swiper-pagination-bullet-active{background:#073f01!important;}

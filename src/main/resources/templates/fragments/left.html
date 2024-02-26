@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="myLeft Left_menu" th:fragment="myLeft" >
+    <link rel="stylesheet" type="text/css" href="/layout/css/left.css" style="position: sticky; top: 100px;">
+    <ul class="menu_wrap green">
+        <div class="profileWrap">
+				<div class="pImg">
+	                <img th:src="${member.FileDto.path}" alt="프로필 사진">
+				</div>
+            <ul class="profile">
+				<li th:text="${member.nick}" style="display: block; text-align: center; font-weight: 600; padding:10px 0"></li>
+				<li style="font-weight: 800; letter-spacing: -1.5px;">내 포인트 : </li>
+                <li style="font-weight: 800; letter-spacing: 0px;" th:text="${member.point}+'P'">포인트</li>
+            </ul>
+        </div>
+        <li class="myInfo main_menu">My Info
+            <div class="myInfo_sub">
+                <ul class="sub_menu">
+                    <li><a href="/mypage/myList">내 정보</a></li>
+                    <li><a href="/mypage/point">포인트 내역</a></li>
+                    <li><a href="/mypage/myResign">탈퇴</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="myBoard main_menu">My Post
+            <div class="myBoard_sub">
+                <ul class="sub_menu">
+                    <li><a href="/mypage/myBoard">내가 쓴 글</a></li>
+                    <li><a href="/mypage/myBoardComment">내가 쓴 댓글</a></li>
+                    <li><a href="/mypage/myBoardLike">좋아요</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="myProduct main_menu">Product
+            <div class="myProduct_sub">
+                <ul class="sub_menu">
+                    <li><a href="/mypage/myBasket">장바구니</a></li>
+                    <li><a href="/mypage/myLikeGoods">찜한 상품</a></li>
+                    <li><a href="/mypage/myOrderList">구매 내역</a></li>
+                    <li><a href="/mypage/myGoodsQnAList">문의 내역</a></li>
+                    <li><a href="/mypage/myGoodsReviewList">나의 리뷰</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    <!--script-->
+    <script type="text/javascript" th:src="@{/layout/js/left.js}"></script>
+    <script type="text/javascript" th:src="@{/mypage/js/modify.js}"></script>
+    <script type="text/javascript" th:src="@{/mypage/js/address.js}"></script>
+    <script type="text/javascript" th:src="@{/mypage/js/point.js}"></script>
+    <script type="text/javascript" th:src="@{/mypage/js/resign.js}"></script>
+    <!--script-->
+</div>
+
+<div class="adminLeft Left_menu" th:fragment="adminLeft">
+    <link rel="stylesheet" type="text/css" href="/layout/css/left.css">
+    <ul class="menu_wrap">
+        <li class="dashBoard main_menu"><a href="/admin/dashboard">DashBoard</a>
+
+        </li>		
+        <li class="role main_menu">운영자 관리
+
+        </li>
+        <li class="goods main_menu">상품 관리
+            <div class="admin_sub">
+                <ul class="sub_menu">
+                    <li><a href="/admin/goodsDetail">상품 상세?</a></li>
+                    <li><a href="/admin/goodsList">상품 목록</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="board main_menu">게시판 관리
+
+        </li>
+    </ul>
+</div>
+
+<div class="mainLeft Left_menu" th:fragment="mainLeft">
+    <link rel="stylesheet" type="text/css" href="/layout/css/left.css">
+    <ul class="menu_wrap green">
+        <li class="OOTD main_menu f30">OOTD
+            <div class="OOTD_sub">
+                <ul class="sub_menu f20">
+                    <li><a th:href="@{/board/board_list(category='all')}">All</a></li>
+                    <li><a th:href="@{/board/board_list(category='hip')}">Hip</a></li>
+                    <li><a th:href="@{/board/board_list(category='modern')}">Modern</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="goods main_menu f30">GOODS
+            <div class="goods_sub">
+                <ul class="sub_menu f20	">
+                    <li><a th:href="@{/goods/goodslist(category=${0})}">All</a></li>
+                    <li><a th:href="@{/goods/goodslist(category=${1})}">Outer</a></li>
+                    <li><a th:href="@{/goods/goodslist(category=${2})}">Top</a></li>
+                    <li><a th:href="@{/goods/goodslist(category=${3})}">Bottom</a></li>
+                    <li><a th:href="@{/goods/goodslist(category=${4})}">Accessory</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="member main_menu f30">
+            <div class="member_sub">
+                <ul class="sub_menu f20	">
+                    <li><a href="/member/join" sec:authorize="isAnonymous()">회원가입</a></li>
+                    <li><a href="/member/login" sec:authorize="isAnonymous()">로그인</a></li>
+                    <li><a th:href="@{/member/logout}" sec:authorize="isAuthenticated()">로그아웃</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    <!--script-->
+    <!--script-->
+</div>
+</html>

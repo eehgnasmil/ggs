@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="option">
+
+    <ul class="input_btn_ul">
+        <button type="button" onclick="addOptionInput()">옵션 추가</button>
+    </ul>
+
+    <ul class="options_input_ul" id="options_input_ul">
+        <div th:each="option, optionStat : *{goodsOptionDtos}">
+            <li th:id="'optionLi_' + ${optionStat.index}">
+                <!-- 옵션명과 옵션값 입력 -->
+                <input type="hidden" th:field="*{goodsOptionDtos[__${optionStat.index}__].idx}" />
+                <input type="text" th:field="*{goodsOptionDtos[__${optionStat.index}__].color}" readonly="readonly"/>
+                <input type="text" th:field="*{goodsOptionDtos[__${optionStat.index}__].size}" readonly="readonly"/>
+                <input type="hidden" th:field="*{goodsOptionDtos[__${optionStat.index}__].status}" />
+                <button type="button" th:onclick="'removeOption(' + ${optionStat.index} + ')'" >X</button>
+            </li>
+        </div>
+    </ul>
+
+    <script th:inline="javascript">
+
+        var optionIdx = document.getElementById('options_input_ul').getElementsByTagName('li').length;
+        function addOptionInput() {
+
+            var idx = optionIdx++;
+
+            var options_input_ul = document.getElementById("options_input_ul");
+
+            var newOptionLi = document.createElement("li");
+            newOptionLi.id = "optionLi_" + idx;
+
+            var newSizeBtn = document.createElement("input");
+            newSizeBtn.type = "text";
+            newSizeBtn.name = "goodsOptionDtos[" + idx + "].size";
+            newSizeBtn.id = "goodsOptionDtos"+idx+".size"
+            newSizeBtn.required = true
+            newSizeBtn.placeholder = "사이즈";
+
+            var newColorBtn = document.createElement("input");
+            newColorBtn.type = "text";
+            newColorBtn.name = "goodsOptionDtos[" + idx + "].color";
+            newColorBtn.id = "goodsOptionDtos"+idx+".color"
+            newColorBtn.required = true
+            newColorBtn.placeholder = "색상";
+
+
+            var hiddenInput = document.createElement("input");
+            hiddenInput.type = "hidden";
+            hiddenInput.name = "goodsOptionDtos[" + idx + "].status";
+            hiddenInput.id = "goodsOptionDtos"+idx+".status"
+            hiddenInput.value = "N";
+
+            var removeOptionBtn = document.createElement("button")
+            removeOptionBtn.type = "button"
+            removeOptionBtn.innerText = "X"
+            removeOptionBtn.onclick = function() {
+                removeOption(idx);
+            };
+
+            newOptionLi.appendChild(newColorBtn);
+            newOptionLi.appendChild(newSizeBtn);
+            newOptionLi.appendChild(removeOptionBtn);
+            newOptionLi.appendChild(hiddenInput);
+            options_input_ul.appendChild(newOptionLi);
+        }
+
+        function removeOption(optionId) {
+            var optionLi = document.getElementById("optionLi_"+optionId)
+            var status = document.getElementById("goodsOptionDtos"+optionId+".status").value;
+            if(status == "" || status == "N" ) {
+                document.getElementById("goodsOptionDtos"+optionId+".status").value = "D"
+            }
+            optionLi.remove();
+            //     hidden은 안됨.. 왜 안되는지 모름..
+        }
+    </script>
+</div>
+</html>
+
