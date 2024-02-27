@@ -11,7 +11,7 @@
 	<div class="myModify_wrap" >
 
 		<div style="display:block;">
-			<div class="pImg">
+			<div class="pImg" style="width: 150px; height: 150px;">
 				<img th:src="${member.FileDto.path}" id="uploadImage" alt="프로필 사진" onclick="triggerFileInput()">
 				<input type="file" accept="image/*" id="fileInput" style="display: none;" onchange="handleFileUpload()"/>
 				<input type="hidden" id="fileIdx" th:value="${member.FileDto.idx}"/>
@@ -28,7 +28,7 @@
 			<li class="passwordForm">
 				<label>패스워드</label>
 				<span>*************</span>
-				<button id="" class="" onclick="modifyPw()">수정</button>
+				<button id="" class="mBtn" onclick="modifyPw()">수정</button>
 			</li>
 
 			<li class="modifyPwForm">
@@ -36,8 +36,8 @@
 				<input type="password" id="password1" name="password1" class="" onblur="NullCheck(this)" placeholder="새 비밀번호를 입력하세요">
 				<input type="password" id="password2" th:name="${member.id}" class="" oninput="NullCheck(this)" placeholder="패스워드 확인">
 				<button id="" class="" onclick="prevPwCheck()">수정</button>
-				<div style="display: none;">비밀번호가 일치하지 않습니다. 확인해주세요.</div>
-				<div style="display: none;">필수입력 사항 일걸?</div>
+				<div class="p10" style="display: none;">비밀번호가 일치하지 않습니다. 확인해주세요.</div>
+				<div class="p10" style="display: none;">필수입력 사항 일걸?</div>
 			</li>
 
 			<li class="nameForm">
@@ -48,14 +48,14 @@
 			<li class="nickForm">
 				<label>닉네임</label>
 				<span th:text="${member.nick}"></span>
-				<button id="modifyBtn" class="" onclick="modifyNick()">수정</button>
+				<button id="modifyBtn" class="class="mBtn"" onclick="modifyNick()">수정</button>
 			</li>
 
 			<li class="modifyNickForm">
 				<input type="text" id="nick" name="nick" - class="" onblur="NullCheck(this)" oninput="check(this)" placeholder="닉네임을 입력하세요">
 				<button id="" class="" name="" onclick="saveNick(this)">수정</button>
-				<div id="nnick" name="nick" style="display: none;">사용 불가능한 닉네임</div>
-				<div style="display: none;">필수입력 사항 일걸?</div>
+				<div class="p10" id="nnick" name="nick" style="display: none;">사용 불가능한 닉네임</div>
+				<div class="p10" style="display: none;">필수입력 사항 일걸?</div>
 			</li>
 
 

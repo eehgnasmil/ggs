@@ -16,9 +16,11 @@
 	background: FBF9F3; 
 	height:100%; 
 	z-index: 90;}
-.Left_menu ul{padding: 0 50px;}
-.menu_wrap{margin-top:130px;}
+.Left_menu ul{}
+.menu_wrap{padding:0 0 0 60px!important; margin-top:130px;}
 .profileWrap{
+	position: relative;
+	left:-30px;
 	width: 100%;
 	overflow: hidden;
 	}
@@ -29,7 +31,7 @@
     border-radius: 100px;
     overflow: hidden;}
 .pImg img {width: 100%;}
-.profile{padding:0 0 0px!important; margin-bottom: 50px;}
+.profile{padding:0 0 0 px!important; margin-bottom: 50px;}
 .profile li{display: inline-block; }
 	
 	

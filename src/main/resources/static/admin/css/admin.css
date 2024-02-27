@@ -12,7 +12,7 @@ h4{margin-bottom: 20px;}
     padding: 0px 30px;
 }
 .adminLeft{overflow: hidden; display: none;}
-.adminLeft{width: 200px; border-right: 3px solid #073f01;}
+.adminLeft{width: 250px; border-right: 3px solid #073f01;}
 .tOpen{width: 100px; height: 100px; position:absolute; right:-102px; top:450px;}
 .contents{flex:1; max-width: 1300px; margin:0 auto; height: 100vh; overflow-y: hidden;}
 #myContent{width:100%; margin-top: 80px; height: 100%;}

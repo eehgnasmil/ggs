@@ -22,6 +22,6 @@ h4{
 }
 .memberInfo{margin:0 auto; width:700px; }
 .menu_wrap{margin-top: 0px;}
-.myLeft{width: 186px; border-right: 3px solid #073f01;}
+.myLeft{width: 250px; border-right: 3px solid #073f01;}
 .myLeft {overflow: hidden; display: none;}
 .tOpen{width: 100px; height: 100px; position:absolute; right:-102px; top:450px}
