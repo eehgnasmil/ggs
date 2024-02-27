@@ -1,16 +1,16 @@
 package ggs.ggs.dto;
 
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 import ggs.ggs.domain.Member;
 import ggs.ggs.domain.MemberFile;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@ToString
+@NoArgsConstructor
 public class MemberDto {
 
     private Integer idx;
@@ -27,10 +27,6 @@ public class MemberDto {
     private Integer grade;
     private Integer point;
     private FileDto fileDto;
-
-    public MemberDto() {
-        // TODO Auto-generated constructor stub
-    }
 
     public MemberDto(String id, String password1, String name, String nick, String email) {
         this.id = id;
@@ -56,8 +52,5 @@ public class MemberDto {
         this.intro = member.getIntro();
         this.fileDto = new FileDto(member.getFile());
     }
-
-
-
 
 }

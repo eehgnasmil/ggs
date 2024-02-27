@@ -59,7 +59,8 @@ public class MypageController {
     // 마이페이지
     @GetMapping("/{title}")
     public String myModify(@PathVariable("title") String title,
-            @RequestParam(value = "page", defaultValue = "0") int page, Model model, Authentication authentication, @ModelAttribute MemberDto memberDto) {
+            @RequestParam(value = "page", defaultValue = "0") int page, Model model, Authentication authentication,
+            @ModelAttribute MemberDto memberDto) {
 
         // 사용자 id 가져오기(SecurityContextHolder)
         authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -78,6 +79,9 @@ public class MypageController {
 
             case "point":
 
+                break;
+
+            case "myReply":
                 break;
 
             case "myBoardLike":
@@ -187,7 +191,8 @@ public class MypageController {
 
     @ResponseBody
     @PostMapping("/deleteImg")
-    public String deleteImg(@RequestParam("fileIdx") Integer fileIdx, Authentication authentication) throws IOException {
+    public String deleteImg(@RequestParam("fileIdx") Integer fileIdx, Authentication authentication)
+            throws IOException {
         FileDto fileDto = new FileDto();
         fileDto.setIdx(fileIdx);
         mypageService.changeImg(fileDto);
@@ -196,7 +201,7 @@ public class MypageController {
 
     @PostMapping("/changeImg")
     public ResponseEntity<String> changeImg(@RequestPart("file") MultipartFile file,
-                                            @RequestParam("idx") int idx) throws Exception{
+            @RequestParam("idx") int idx) throws Exception {
         FileDto fileDto = new FileDto();
         fileDto.setIdx(idx);
         fileDto.setFile(file);

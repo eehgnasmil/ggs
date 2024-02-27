@@ -60,4 +60,25 @@ public class BoardTagServiceImpl implements HashtagService {
 
     }
 
+    @Transactional
+    public void updateHashtags(List<String> newHashtags, Board board) {
+        // 기존에 게시판과 연결된 해시태그 제거
+        List<MiddleTag> middleTags = middleTagRepository.findByBoard(board);
+        middleTagRepository.deleteAll(middleTags);
+
+        // 새로운 해시태그 연결
+        for (String hashtag : newHashtags) {
+            createHashtag(hashtag, board);
+        }
+    }
+
+    // @Transactional
+    // public Page<BoardDto> getBoardsByHashtag(String hashtag, int page, int size) {
+    //     Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "board.modifiedDate");
+    //     Hashtag targetHashtag = hashtagRepository.findByHashtag(hashtag)
+    //             .orElseThrow(() -> new IllegalArgumentException("해시태그를 찾을 수 없습니다: " + hashtag));
+    //     Page<MiddleTag> middleTags = middleTagRepository.findByHashtagOrderByBoardModifiedDateDesc(targetHashtag,
+    //             pageable);
+    //     return middleTags.map(middleTag -> BoardDto.convertToDto(middleTag.getBoard()));
+    // }
 }

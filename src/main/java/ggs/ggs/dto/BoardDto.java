@@ -3,8 +3,8 @@ package ggs.ggs.dto;
 import java.time.LocalDateTime;
 
 import ggs.ggs.domain.Board;
-import ggs.ggs.domain.Hashtag;
 import ggs.ggs.domain.Member;
+import ggs.ggs.domain.MiddleTag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,8 +34,6 @@ public class BoardDto {
     private int likesCount;
 
     private List<String> hashtags = new ArrayList<>();// 해시태그를 저장할 필드 추가
-    // private List<String> hashtags;// 해시태그를 저장할 필드 추가
-
 
     private List<String> imageUrls = new ArrayList<>(); // 이미지 URL을 저장할 필드
 
@@ -55,6 +53,7 @@ public class BoardDto {
         this.acc = board.getAcc();
         this.shoes = board.getShoes();
         this.likesCount = board.getLikesCount();
+
     }
 
     public Board toEntity(Member member) {
@@ -71,4 +70,13 @@ public class BoardDto {
                 .build();
     }
 
+    public static BoardDto convertToDto(Board board) {
+        BoardDto dto = new BoardDto(board);
+        // MiddleTag를 통해 해시태그 리스트 가져오기
+        List<String> hashtags = board.getMiddleTags().stream()
+                .map(MiddleTag::getHashtagName)
+                .collect(Collectors.toList());
+        dto.setHashtags(hashtags);
+        return dto;
+    }
 }

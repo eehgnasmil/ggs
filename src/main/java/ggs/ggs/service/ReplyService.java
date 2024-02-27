@@ -10,5 +10,4 @@ public interface ReplyService {
     void delete(Long idx);
     
     List<ReplyDto> findByBoardId(Long board);
-//    List<ReplyDto> findByGoodsId(Integer goods);
 }

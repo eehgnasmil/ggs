@@ -1,9 +1,5 @@
 package ggs.ggs.board;
 
-import org.springframework.data.convert.ReadingConverter;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 // import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
@@ -12,18 +8,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import ggs.ggs.domain.Board;
-import ggs.ggs.domain.Goods;
 import ggs.ggs.domain.Reply;
 import ggs.ggs.domain.Member;
 import ggs.ggs.dto.ReplyDto;
-import ggs.ggs.goods.GoodsRepository;
 import ggs.ggs.member.MemberRepository;
-import ggs.ggs.member.MemberService;
 import ggs.ggs.service.ReplyService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +23,6 @@ public class BoardReplyServiceImpl implements ReplyService {
         private final BoardReplyRepository replyRepository;
         private final BoardRepository boardRepository;
         private final MemberRepository memberRepository;
-        private final GoodsRepository goodsRepository;
 
         @Transactional
         @Override
@@ -76,25 +66,6 @@ public class BoardReplyServiceImpl implements ReplyService {
                 replyRepository.delete(reply);
         }
 
-        // @Override
-        // public List<ReplyDto> findByBoardId(Long boardId) {
-        // Board board = boardRepository.findById(boardId)
-        // .orElseThrow(() -> new RuntimeException("게시판을 찾을 수 없습니다. id=" + boardId));
-
-        // // 대댓글을 포함한 댓글 리스트를 만듭니다.
-        // return replyRepository.findByBoardOrderByParentIdxAscIdxAsc(board).stream()
-        // .map(reply -> {
-        // ReplyDto dto = ReplyDto.from(reply);
-        // Integer memberId = reply.getMember().getIdx(); // 댓글 작성자의 ID
-        // Member member = memberRepository.findById(memberId)
-        // .orElseThrow(() -> new UsernameNotFoundException(
-        // "Member not found with ID: " + memberId));
-        // dto.setNickname(member.getNick()); // 닉네임 설정
-        // return dto;
-        // })
-        // .collect(Collectors.toList());
-        // }
-
         @Override
         public List<ReplyDto> findByBoardId(Long boardId) {
                 Board board = boardRepository.findById(boardId)
@@ -105,24 +76,5 @@ public class BoardReplyServiceImpl implements ReplyService {
                                 .map(reply -> ReplyDto.from(reply))
                                 .collect(Collectors.toList());
         }
-
-//        @Override
-//        public List<ReplyDto> findByGoodsId(Integer goodsId) {
-//                Goods goods = goodsRepository.findById(goodsId)
-//                                .orElseThrow(() -> new RuntimeException("상품을 찾을 수 없습니다. id=" + goodsId));
-//
-//                // 대댓글을 포함한 댓글 리스트를 만듭니다.
-//                return replyRepository.findByGoodsOrderByParentIdxAscIdxAsc(goods).stream()
-//                                .map(reply -> {
-//                                        ReplyDto dto = ReplyDto.from(reply);
-//                                        Integer memberId = reply.getMember().getIdx(); // 댓글 작성자의 ID
-//                                        Member member = memberRepository.findById(memberId)
-//                                                        .orElseThrow(() -> new UsernameNotFoundException(
-//                                                                        "Member not found with ID: " + memberId));
-//                                        dto.setNickname(member.getNick()); // 닉네임 설정
-//                                        return dto;
-//                                })
-//                                .collect(Collectors.toList());
-//        }
 
 }

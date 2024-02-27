@@ -1,14 +1,7 @@
 package ggs.ggs.board;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 
-import ggs.ggs.domain.Board;
 import ggs.ggs.domain.Hashtag;
 import ggs.ggs.domain.Member;
 import ggs.ggs.dto.BoardDto;
@@ -23,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -81,41 +73,8 @@ public class BoardController {
 
         BoardDto createdBoardDto = boardService.createBoard(dto, id);
 
-        System.out.println(dto.getHashtags() + "asdgasdgasd");
         return ResponseEntity.status(HttpStatus.CREATED).body(createdBoardDto);
     }
-
-    // @GetMapping("/board_list")
-    // public String boardList(@RequestParam(value = "category", defaultValue =
-    // "all") String category,
-    // @RequestParam(value = "bsort", defaultValue = "new") String bsort,
-    // Model model) {
-
-    // Sort sort;
-    // if ("new".equals(bsort)) {
-    // sort = Sort.by("modifiedDate").descending();
-    // } else if ("view".equals(bsort)) {
-    // sort = Sort.by("viewcount").descending();
-    // } else if ("like".equals(bsort)) {
-    // sort = Sort.by("likesCount").descending();
-    // } else {
-    // sort = Sort.by("idx").descending();
-    // }
-
-    // Pageable pageable = PageRequest.of(0, 15, sort);
-    // Page<BoardDto> boardList = boardService.getAllBoards(category, bsort,
-    // pageable);
-
-    // List<List<Hashtag>> hashtagsList = new ArrayList<>();
-    // for (BoardDto board : boardList) {
-    // List<Hashtag> hashtags = boardService.getHashtagsForBoard(board.getIdx());
-    // hashtagsList.add(hashtags);
-    // }
-    // model.addAttribute("boardList", boardList.getContent());
-    // model.addAttribute("category", category);
-    // model.addAttribute("hashtagsList", hashtagsList);
-    // return "board/board_list";
-    // }
 
     @GetMapping("/board_list")
     public String boardList(@RequestParam(value = "category", defaultValue = "all") String category,
@@ -236,5 +195,25 @@ public class BoardController {
         boardService.deleteBoard(idx, userId);
         redirectAttributes.addFlashAttribute("message", "게시글이 삭제되었습니다.");
         return "redirect:/board/board_list";
+    }
+
+    @GetMapping("/hashtag/{hashtag}")
+    public String hashtagList(
+            @PathVariable("hashtag") String hashtag,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            Model model) {
+        Page<BoardDto> boardList = boardService.getBoardsByHashtag(hashtag, page, size); // 수정된 부분
+        model.addAttribute("boardList", boardList);
+        return "board/hashtag_list";
+    }
+
+    @GetMapping("/hashtag_ajax/{hashtag}")
+    @ResponseBody
+    public Page<BoardDto> hashtagListajax(
+            @PathVariable("hashtag") String hashtag,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        return boardService.getBoardsByHashtag(hashtag, page, size); // 수정된 부분
     }
 }

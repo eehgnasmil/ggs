@@ -6,11 +6,10 @@ import java.util.*;
 
 public interface HashtagService {
     Hashtag createHashtag(String hashtag, Board board);
+
     List<Hashtag> getAllHashtags();
+
     List<Hashtag> getHashtagsByBoard(Board board);
-    
-    // Hashtag getHashtag(String hashtag);
-    // List<Hashtag> getAllHashtags();
-    // Hashtag updateHashtag(String oldHashtag, String newHashtag);
-    // void deleteHashtag(String hashtag);
+
+    void updateHashtags(List<String> newHashtags, Board board);
 }

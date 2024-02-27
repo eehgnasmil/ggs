@@ -47,24 +47,8 @@
     </ul>
     <ul id="boardList"  style="width: 100%; display: flex; flex-wrap: wrap;">
     </ul>
-    <button id="loadMoreButton">더보기</button>  
     <script th:src="@{/board/js/list.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> 
-
-<!--    
-                 <div th:each="goods:${goods}">
-                    <div th:class="'modal-container' + ${goods.idx} + ' modal-container'">
-                        <div class="modal-background">
-                            <div class="modal" >
-                                <div class="mScroll">
-                                    <div class="modalOut" th:name="${goods.idx}" onclick="modalOut()">엑스염</div>
-                                    <div th:replace="~{goods/detail :: goodsDetailFragment(goods = ${goods})}"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
--->
 	<script>
 		var jsonData = null;
 		var $button         = $('.button'),

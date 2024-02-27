@@ -16,8 +16,9 @@
 						<ul>
 							<div style="position:relative; height: 0; padding-bottom:120%; overflow:hidden;" class="mySwiper1-2 swiper">
 								<div class="swiper-wrapper">
+
 									<li th:each="imageUrl : ${boardList.imageUrls}" th:name="${boardList.idx}" class="button1 swiper-slide" style="padding-bottom:130%;">
-										<img th:src="${imageUrl}" alt="Goods Image">
+										<img th:src="${imageUrl}" alt="Board Image">
 									</li>
 								</div>
 								<div class="i-hover">
@@ -31,6 +32,36 @@
 							<li class="summary" th:text="${goods.summary}"></li>
 							<li class="sellingPrice" th:text="${goods.sellingPrice}+'원'"></li>
 							<li class="discountPrice" th:text="${goods.discountPrice}+'원'"></li>-->
+						<!-- 
+							이거 board받아오는!!
+							<ul>
+				<li><a href="/?cate=all">All</a></li>
+				<li><a href="/?cate=hip">Hip</a></li>
+				<li><a href="/?cate=modern">Modern</a></li>
+			</ul>
+			<ul>
+				<li><a th:href="@{/(cate=${cate},bsort=new)}">최신순</a></li>
+				<li><a th:href="@{/(cate=${cate},bsort=view)}">조회수순</a></li>
+				<li><a th:href="@{/(cate=${cate},bsort=like)}">좋아요순</a></li>
+			</ul>
+			<h1 th:text="${cate}"></h1>
+			<ul th:each="board : ${boardList}">
+				<li><a th:href="@{/board/board_detail/{idx}(idx=${board.idx})}" th:text="${board.idx}"></a></li>
+				<li th:text="${board.title}"></li>
+				<li th:text="${board.nickname}"></li>
+				<li th:each="imageUrl:${board.imageUrls}">
+					<img th:src="${imageUrl}" alt="Board image">
+				</li>
+				<li th:text="${board.category}"></li>
+				<li th:text="${board.likesCount}"></li>
+				<li th:text="${board.viewcount}"></li>
+				<li th:text="${#temporals.format(board.modifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></li>
+				<li>
+					<span th:each="hashtag:${board.hashtags}">
+						<a th:href="@{/board/hashtag/{hashtag}(hashtag=${hashtag})}" th:text="${hashtag}"></a>
+					</span>
+				</li>
+			</ul> -->
 						</ul>
 					</li>
 				</ul>

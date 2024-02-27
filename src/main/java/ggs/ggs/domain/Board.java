@@ -3,6 +3,7 @@ package ggs.ggs.domain;
 import ggs.ggs.dto.BoardDto;
 import jakarta.persistence.*;
 import lombok.*;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -64,6 +65,9 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reply> replies = new ArrayList<>();
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MiddleTag> middleTags = new ArrayList<>();
+
     public void setViewcount(int viewcount) {
         this.viewcount = viewcount;
     }
@@ -71,7 +75,6 @@ public class Board {
     public void setLikesCount(int likesCount) {
         this.likesCount = likesCount;
     }
-
 
     public void update(BoardDto dto) {
         this.title = dto.getTitle();
@@ -85,6 +88,3 @@ public class Board {
     }
 
 }
-    // public int getLikesCount() {
-    //     return boardlike.size();
-    // }
