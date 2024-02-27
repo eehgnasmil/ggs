@@ -4,23 +4,19 @@ package ggs.ggs.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import ggs.ggs.board.BoardService;
 import ggs.ggs.dto.GoodsDto;
-import ggs.ggs.dto.MemberDto;
 import ggs.ggs.goods.GoodsService;
-import ggs.ggs.member.MemberService;
-import ggs.ggs.mypage.MypageService;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -89,5 +85,13 @@ public class AdminController {
         return "/admin/admin";
     }
 
+    @PostMapping("/deleteGoods")
+    public ResponseEntity<String> deleteGoods(@RequestBody List<Integer> goodsItems) {
+        System.out.println(goodsItems);
+        for(Integer goodsItem:goodsItems){
+//            goodsService.delete(goodsItem);
+        }
+        return ResponseEntity.ok(goodsItems.size() + "개가 삭제되었습니다.");
+    }
 
 }
