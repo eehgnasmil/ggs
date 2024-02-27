@@ -1,3 +1,0 @@
-function toggleM(){
-    $('.adminLeft').toggle();	
-}
