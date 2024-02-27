@@ -94,7 +94,7 @@ public class OrderServiceImpl implements OrderService {
 
         Cart cart = FindbyMember(member);
         Sort sort = Sort.by(Sort.Order.desc("idx"));
-        Pageable pageable = PageRequest.of(page, 5, sort);
+        Pageable pageable = PageRequest.of(page, 8, sort);
 
         Page<CartItem> cartItems = cartItemRepository.findAllByCart(cart, pageable);
 
@@ -214,7 +214,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Page<OrderlistDto> findbyOrderItem(String sid, int page) {
         Sort sort = Sort.by(Sort.Order.desc("idx"));
-        Pageable pageable = PageRequest.of(page, 5, sort);
+        Pageable pageable = PageRequest.of(page, 8, sort);
 
     Optional<Member> optionalMember = memberRepository.findByid(sid);
     Member member = optionalMember.get();

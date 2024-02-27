@@ -59,7 +59,7 @@ public class GoodsLikeServiceImpl implements LikeService {
     public Page<Object> likeList(String sid, int page) {
         Optional<Member> optionalMember = memberRepository.findByid(sid);
 
-        Pageable pageable = PageRequest.of(page,5);
+        Pageable pageable = PageRequest.of(page,8);
         Member member = optionalMember.get();
 
         Page<GoodsLike> goodsLikes = likeRepository.findGoodsLikesWithGoodsByMember(member,pageable);

@@ -8,6 +8,11 @@
                     <li><a th:href="@{/admin/goodsList(category=${3})}">Bottom</a></li>
                     <li><a th:href="@{/admin/goodsList(category=${4})}">Accessory</a></li>
                 </ul>
-    <div th:replace="~{/goods/goodslist :: goodsListFragment}"></div>
+        <input type="checkbox" id="allCheckId" onclick="allCheck(this)" checked/>
+        <button type="submit" onclick="validateForm()">선택한 상품 삭제하기</button>
+        <div th:replace="~{/goods/goodslist :: goodsListFragment}">
+
+        </div>
 </div>
+
 </html>
