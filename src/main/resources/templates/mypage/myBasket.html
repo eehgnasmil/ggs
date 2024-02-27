@@ -25,6 +25,7 @@
                 <hr>
 
                 <div th:if="${cartNum != 0}">
+                    <button type="button" onclick="selectRemove()">선택한 상품 삭제하기</button>
                     <button type="submit">선택한 상품 구매하기</button>
                     <div>
                         <span>총 상품금액</span> <span id="totalAmount"></span> 원<br>

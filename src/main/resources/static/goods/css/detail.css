@@ -30,9 +30,9 @@
 .goodsInfoWrap .detailArea ul {width: 100%;}
 .goodsInfoWrap .detailArea ul img{max-width: 100%;}
 .buyButton{display: flex; width:100%; justify-content: space-evenly; margin:-2px 0;}
-.buyButton button{width: 50%;}
-.buyButton button:nth-child(1){border-right: 1px solid #FBF9F3;}
-.buyButton button{background:black; color: white; height: 40px; font-size: 17px; font-weight: 800; padding: 0 10px; border:none; border-radius: 0;}
+.buyButton button{width: 100%;}
+.buyButton a{font-weight: 600; width: 100%; background-color: black; color: white; text-align: center; text-decoration: none; line-height: 40px;}
+.buyButton button{background:black; border:none; border-right: 1px solid white; color: white; height: 40px; font-size: 17px; font-weight: 800; padding: 0 10px; border-radius: 0;}
 .sop p{display: inline-block; margin-right: 20px; font-size: 14px!important;}
 .optionOpen{width: 60px; margin: -2px auto;}
 .optionOpen img{width: 100%;}

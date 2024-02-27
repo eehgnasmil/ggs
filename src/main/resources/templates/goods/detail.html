@@ -80,7 +80,7 @@
 <div layout:fragment="content">
     <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/goods/update/${goods.idx}|}">수정</a>
     <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/goods/delete/${goods.idx}|}">삭제</a>
-    <a sec:authorize="hasRole('ROLE_USER')" th:href="@{|/goodsCS/goodsQuestion/${goods.idx}|}">문의사항</a>
+
     <div th:fragment="goodsDetailFragment">
         <link rel="stylesheet" type="text/css" href="/goods/css/detail.css">
         <div class="goodsTop">
@@ -171,7 +171,8 @@
                     </div><div th:class="'selectOption'+${goods.idx}+ ' sop'" style="display: none; border:1px solid black;     background: rgba(255, 255, 255, 0.8);"></div>
                     <div sec:authorize="isAuthenticated()" class="buyButton">
                         <button type="button"  th:name="${goods.idx}"  onclick="ischeckCart(this)">장 바 구 니</button>
-                        <button type="button"  th:name="${goods.idx}" onclick="ischeckBuy(this)">구 매</button>
+                        <button type="button"  th:name="${goods.idx}" onclick="ischeckBuy(this)">구 매</button>                        
+					    <a sec:authorize="hasRole('ROLE_USER')" th:href="@{|/goodsCS/goodsQuestion/${goods.idx}|}">상품 문의</a>                        
                     </div>
                     <div sec:authorize="isAnonymous()" class="buyButton">
                         <button type="button"  th:name="${goods.idx}"   onclick="loginPage()">장 바 구 니</button>

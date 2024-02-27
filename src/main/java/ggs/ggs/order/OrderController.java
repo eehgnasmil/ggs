@@ -4,6 +4,7 @@ import ggs.ggs.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -54,6 +55,17 @@ public class OrderController {
         String sid = authentication.getName();
         orderService.deleteCart(cartItem, sid);
         return "삭제되었습니다.";
+    }
+
+    @PostMapping("/deleteCarts")
+    public ResponseEntity<String> deleteCarts(@RequestBody List<Integer> cartItems, Authentication authentication) {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        String sid = authentication.getName();
+        System.out.println(cartItems);
+        for(Integer cartItem:cartItems){
+            orderService.deleteCart(cartItem, sid);
+        }
+        return ResponseEntity.ok("삭제되었습니다.");
     }
 
     @PostMapping("/orderForm")

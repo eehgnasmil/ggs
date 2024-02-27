@@ -8,7 +8,7 @@
                     <tr>
                         <td rowspan="3">
                             <li th:each="fileDto : ${goods.fileDtos}">
-                                <img th:src="@{|/img/goods/${fileDto.sfile}|}" alt="Goods Image" width="50px">
+                                <img th:src="@{|${fileDto.path}|}" alt="Goods Image" width="50px">
                             </li>
                         </td>
                         <td ><a th:href="@{|/goods/detail/${goods.idx}|}" th:text="${goods.name}"></a></td>
