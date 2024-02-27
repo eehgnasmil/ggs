@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+<div layout:fragment="content">
+  <style>
+    .swiper {
+      width: 90%;
+    }
+
+    .swiper-slide {
+      overflow: hidden;
+      height: 100%;
+      text-align: center;
+      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      position: absolute;
+      top: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .i-hover {
+      display: none;
+    }
+
+    .mySwiper2:hover .i-hover {
+      display: block;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <h2 th:text="${hashtag}">해시태그</h2>
+
+  <ul id="categoryList">
+    <li><a href="/board/board_list?category=all">All</a></li>
+    <li><a href="/board/board_list?category=hip">Hip</a></li>
+    <li><a href="/board/board_list?category=modern">Modern</a></li>
+  </ul>
+
+  <ul id="boardList" style="width: 100%; display: flex; flex-wrap: wrap;">
+  </ul>
+  <script th:src="@{/board/js/hashtag_list.js}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</div>
+
+</html>

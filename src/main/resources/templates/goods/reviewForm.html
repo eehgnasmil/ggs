@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+>
+<head>
+    <meta charset="UTF-8">
+</head>
+<div layout:fragment="content">
+    <h1>상품등록</h1>
+    <div>
+        <div>
+            <li th:each="fileDto : ${goods.fileDtos}" th:name="${goods.idx}" >
+                <a th:href="@{|/goods/detail/${goods.idx}|}"><img th:src="@{|/img/goods/${fileDto.sfile}|}" alt="Goods Image" style="width: 100px"></a>
+            </li>
+        </div>
+        <div id="goodsName" th:text="${goods.name}"></div>
+        <table>
+            <tr>
+                <td>판매가</td>
+                <td><span th:text="${goods.sellingPrice}"></span></td>
+            </tr>
+            <tr>
+                <td>할인가</td>
+                <td><span th:text="${goods.discountPrice}"></span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="container">
+        <form th:action="@{|/goodsCS/goodsReview|}" method="post"  enctype="multipart/form-data">
+
+            <!--            <input type="hidden" th:field="*{idx}"/>-->
+            <!--            <input type="hidden" th:field="*{goodsIdx}"/>-->
+            <!--            <ul>-->
+
+            <!--                <table>-->
+            <!--                    <tr>-->
+            <!--                        <td>제목</td>-->
+            <!--                        <td><input type="text" id="title" name="title" th:field="*{title}" required/></td>-->
+            <!--                    </tr>-->
+            <!--                    <tr>-->
+            <!--                        <td colspan="2">-->
+            <!--                            <select id="category" name="category" th:field="*{category}" required>-->
+            <!--                                <option value="" selected>문의내역을 선택해주세요</option>-->
+            <!--                                <option value="1" th:selected="${question.category eq 1}">상품문의</option>-->
+            <!--                                <option value="2" th:selected="${question.category eq 2}">주문/배송문의</option>-->
+            <!--                            </select>-->
+            <!--                        </td>-->
+            <!--                    </tr>-->
+            <!--                    <tr>-->
+            <!--                        <td colspan="2"><textarea th:field="*{question}"></textarea></td>-->
+            <!--                    </tr>-->
+            <!--                </table>-->
+
+
+            <!--            </ul>-->
+            <button type="submit">작성</button>
+        </form>
+    </div>
+</div>
+
+</html>

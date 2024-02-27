@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html
+		lagn="ko"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns="http://www.w3.org/1999/html">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="_csrf_header" th:content="${_csrf.headerName}">
+	<meta name="_csrf" th:content="${_csrf.token}">
+	<!--CSS -->
+	<link rel="stylesheet" type="text/css" href="/layout/css/reset.css">
+	<!--jquery cdn-->
+	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+	<script type="text/javascript" th:src="@{/layout/js/layout.js}"></script>
+	<script type="text/javascript" th:src="@{/mypage/js/mypage.js}"></script>	
+</head>
+
+<body>
+<layout class="layout">
+	<div th:replace="~{fragments/header :: header}"></div>
+	<div class="content">
+		<div id="contentFilter"></div>
+		<div style="position: relative;">			
+			<div class="left_menu" th:replace="~{fragments/left :: myLeft}" style="position: sticky; top: 0;"></div>
+			<div class="tOpen" onclick="toggleM()">open</div>										
+		</div>
+		<div class="contents" layout:fragment="content"></div>
+	</div>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</layout>
+</body>
+</html>

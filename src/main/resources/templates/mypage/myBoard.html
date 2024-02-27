@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="myBoard">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+	<style>
+		
+.swiper {
+  width: 90%;
+}
+
+.swiper-slide {
+  overflow: hidden;
+  height: 100%;
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  position: absolute;
+  top:0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.i-hover{display:none;}
+.mySwiper2:hover .i-hover{display:block;}    
+</style>
+    <div class="myModify_wrap">
+        <h2>내가 작성한 게시판</h2>
+        <ul style="display: flex; flex-wrap: wrap;">
+            <li th:each="board:${myBoards}" style="width: 25%; padding:0 0 30px 0; display:inline-block; text-align: center; ">
+                <ul >
+                    <div style="position:relative; height: 0; padding-bottom:120%; overflow:hidden;" class="mySwiper2 swiper">
+                        <div class="swiper-wrapper">
+	                    <li th:each="imageUrl : ${board.imageUrls}" class="swiper-slide" style="padding-bottom:130%;">
+							<img th:src="${imageUrl}" />
+						</li>
+                        </div>
+                        <div class="i-hover">
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                    <li><a th:href="@{|/board/board_detail/${board.idx}|}" th:text="${board.idx}"></a></li>
+                    <li><span th:text="${board.title}"></span></li>
+                    <li><span th:text="${board.category}"></span></li>
+                    <li><span th:text="${board.nickname}"></span></li>
+                    <li><span th:text="${board.viewcount}"></span></li>
+                    <li><span th:text="${#temporals.format(board.modifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></span></li>
+                </ul>
+            </li>
+        </ul>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            var swiper = new Swiper(".mySwiper2", {
+                pagination: {
+                    el: ".swiper-pagination",
+                    type: "progressbar",
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            });
+        </script>        
+        <div th:if="${!myBoards.isEmpty()}">
+            <a th:href="@{|/mypage/myBoard?page=${myBoards.number-1}|}" th:if="${myBoards.hasPrevious()}">이전</a>
+            <a th:href="@{|/mypage/myBoard?page=${myBoards.number+1}|}" th:if="${myBoards.hasNext()}">다음</a>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="file" style="display: inline-block; vertical-align: top;">
+
+    <ul class="input_btn_ul" style="vertical-align: top;">
+        <button type="button" onclick="addFileInput()">파일 추가</button>
+    </ul>
+
+    <ul class="files_input_ul" id="files_input_ul" style="display: inline-block;">
+        <div th:each="fileDto, stat :  *{fileDtos}">
+            <li th:id="'fileLi_'+${stat.index}">
+                <input type="hidden" th:field="*{fileDtos[__${stat.index}__].idx}" />
+                <input type="hidden" th:field="*{fileDtos[__${stat.index}__].status}" />
+                <input type="hidden" th:field="*{fileDtos[__${stat.index}__].ofile}" />
+                <input type="hidden" th:field="*{fileDtos[__${stat.index}__].sfile}" />
+                <input type="hidden" th:field="*{fileDtos[__${stat.index}__].path}" />
+                <img th:src="@{|*{fileDtos[__${stat.index}__].path}|}" alt="Goods Image" width="50px">
+                <span th:text="*{fileDtos[__${stat.index}__].ofile}"></span>
+                <button type="button" th:onclick="'removeFile(' + ${stat.index} + ')'" >X</button>
+
+            </li>
+        </div>
+    </ul>
+
+    <script th:inline="javascript">
+
+        var fileIdx = document.getElementById('files_input_ul').getElementsByTagName('li').length;
+
+        function addFileInput() {
+
+            var idx = fileIdx++;
+
+            var files_input_ul = document.getElementById("files_input_ul");
+
+            var newFileLi = document.createElement("li");
+            newFileLi.id = "fileLi_" + idx;
+
+            var hiddenInput = document.createElement("input");
+            hiddenInput.type = "hidden";
+            hiddenInput.name = "fileDtos[" + idx + "].status";
+            hiddenInput.id = "fileDtos" + idx + ".status"
+            hiddenInput.value = "N";
+
+            var newFileBtn = document.createElement("input");
+            newFileBtn.type = "file";
+            newFileBtn.name = "fileDtos[" + idx + "].file";
+            newFileBtn.accept = "image/*"
+            newFileBtn.id = "fileDtos" + idx + ".file"
+            newFileBtn.onchange = function () {
+                previewImage(idx);
+            };
+
+
+            var preView = document.createElement("img");
+            preView.id = "preView" + idx
+
+            var removeFileBtn = document.createElement("button")
+            removeFileBtn.type = "button"
+            removeFileBtn.innerText = "X"
+            removeFileBtn.onclick = function () {
+                removeFile(idx);
+            };
+
+
+            newFileLi.appendChild(hiddenInput);
+            newFileLi.appendChild(newFileBtn);
+            newFileLi.appendChild(preView);
+            newFileLi.appendChild(removeFileBtn);
+            files_input_ul.appendChild(newFileLi);
+
+        }
+
+        function previewImage(fileId) {
+            var fileInput = document.getElementById("fileDtos" + fileId + ".file");
+            console.log(fileInput.files)
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+
+
+                const preview = document.getElementById("preView" + fileId)
+                preview.style.maxWidth = "100%";
+                preview.style.maxHeight = "200px";
+
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+
+            } else {
+                const preview = document.getElementById("preView" + fileId)
+                preview.src = "";
+            }
+        }
+
+        function removeFile(fileId) {
+
+            var status = document.getElementById("fileDtos" + fileId + ".status").value;
+
+            if (status == "") {
+
+                document.getElementById("fileDtos" + fileId + ".status").value = "D"
+            }
+            var fileLi = document.getElementById("fileLi_" + fileId)
+            fileLi.style.display = "none";
+
+        }
+
+    </script>
+</div>
+</html>
+

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+>
+<head>
+    <meta charset="UTF-8">
+</head>
+<div layout:fragment="content">
+	<div th:fragment="goodsF">
+	<link rel="stylesheet" type="text/css" href="/goods/css/goodsForm.css">	
+	    <h4>상품등록</h4>
+	    <div class="container">
+	        <form th:action="@{|/goods/new/${goods.idx}|}" method="post" th:object="${goods}" enctype="multipart/form-data">
+	
+	            <script>
+	                document
+	
+	                document.querySelector('form').addEventListener('submit', function () {
+	                    document.getElementById('detail').value = editor.getHTML();
+	                });
+	            </script>
+	
+	            <input type="hidden" th:field="*{idx}"/>
+	
+	            <ul>
+	                <li>카테고리 |&nbsp
+	                    <select id="category" name="category" th:field="*{category}" required>
+	                        <option value="" selected>카테고리를 선택해주세요</option>
+	                        <option value="1" th:selected="${goods.category eq 1}">Outer</option>
+	                        <option value="2" th:selected="${goods.category eq 2}">Top</option>
+	                        <option value="3" th:selected="${goods.category eq 3}">Bottom</option>
+	                        <option value="4" th:selected="${goods.category eq 4}">Accessory</option>
+	                    </select>
+	                </li>
+	
+	                <li>상품명 |&nbsp
+	                    <input type="text" id="name" name="name" th:field="*{name}" placeholder="상품명" required/>
+	                </li>
+	
+	                <li>상품요약설명 |&nbsp
+	                    <textarea id="summary" name="summary" th:field="*{summary}" placeholder="Summary" required/>
+	                </li>
+	
+	                <li>판매가 |&nbsp
+	                    <input type="number" id="sellingPrice" name="sellingPrice" th:field="*{sellingPrice}" placeholder="Selling Price" required/>
+	                </li>
+	
+	                <li>할인가 |&nbsp
+	                    <input type="number" id="discountPrice" name="discountPrice" th:field="*{discountPrice}" placeholder="Discount Price" required/>
+	                </li>
+					<li> 옵션 |&nbsp						
+	                	<div th:replace="~{goods/goodsOption :: option}"></div>
+					</li>
+					<li> 상품사진 |&nbsp						
+		                <div th:replace="~{fragments/file :: file}"></div>
+					</li>
+	
+	                <li>
+	                    <textarea id="detail" name="detail" th:field="*{detail}" style="display: none;"></textarea>
+	                    <div th:replace="~{fragments/teditor :: teditor}" th:with="goods=${goods}"></div>
+	                </li>
+	
+	            </ul>
+	            <button class="postBtn" type="submit" style="margin-bottom: 100px;">작성</button>
+	        </form>
+	    </div>
+	</div>    
+</div>
+
+</html>

@@ -1,0 +1,14 @@
+button{background:black; color:white; border:none; border-radius: 5px; padding:3px 10px;}
+label{font-weight: 600;}
+label::after{content: " | ";}
+input{outline: none; border:none; background: none;}
+.myModify_wrap li{list-style: none; padding:15px 0; border-bottom: 1px solid black;}
+.modifyPwForm{display: none;}
+.modifyPwForm input{width: 50%; background: none; border: none; height: 30px; }
+.modifyPwForm input:nth-child(3){width: 50%; display: inline-block;}
+.modifyNickForm{display: none;}
+.postAddressM{display: none;}
+.myModify_wrap{border: 2px solid black; border-radius: 20px; padding:40px 60px 60px 60px;}
+.mBtn{margin-top: 10px;}
+.postAddressM input{width: 50%; height: 30px;}
+.p10{font-size: 10px; color: red;}
