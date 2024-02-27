@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">        
+<div layout:fragment="content">
+<!--joincss-->
+<link rel="stylesheet" type="text/css" href="/member/css/login.css">
+<!--joincss-->
+    <div class="content-title">
+        <h4>로그인</h4>
+    </div>
+
+    <div class="login_wrap" style="position: relative;">
+		<form th:action="@{/member/login}" method="post">
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">
+                사용자ID 또는 비밀번호를 확인해 주세요.
+            </div>
+        </div>			
+			<ul class="login_form">
+			    <li class="idForm">
+			        <input type="text" name="username" id="username" class=""  placeholder="아이디">
+			    </li>
+			    <li class="passwordForm">
+			        <input type="password" id="password" name="password" class="" placeholder="패스워드">
+			    </li>			    
+			</ul>
+	    	<input type="submit" class="loginBtn" value="로그인">
+		</form>
+	    <div class="findWrap">					
+    		<button id="login" class="" onclick="location.href ='/member/findId'">아이디 찾기</button>
+    		<button id="login" class="" onclick="location.href ='/member/findPw'">비밀번호 찾기</button>			    		
+    		<button onclick="location.href ='/member/join'">회원가입</button>			    		
+		</div>
+	</div>
+					
+    <!--script-->
+    <script type="text/javascript" th:src="@{/member/js/login.js}"></script>
+    <!--script-->
+</div>

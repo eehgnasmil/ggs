@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="goodsLike" style="display: inline-block;">
+    <ul>
+        <div sec:authorize="isAuthenticated()" th:if="${likeTF}" class="likeBtn" type="button" th:onclick="'javascript:goodsLike(' + ${goods.idx} + ')'" style="background-image : url('/img/like.png');"></div>
+        <div sec:authorize="isAuthenticated()" th:if="${!likeTF}" class="likeBtn" type="button" th:onclick="'javascript:goodsLike(' + ${goods.idx} + ')'" style="background-image : url('/img/unlike.png');"></div>
+        <div sec:authorize="isAnonymous()" th:if="${!likeTF}" class="likeBtn" type="button" onclick="loginPage()" style="background-image : url('/img/unlike.png');"></div>
+    </ul>
+    <script>
+        function goodsLike(idx) {
+            $.ajax({
+                type: 'POST',
+                data: {
+                    "goods": idx
+                },
+                url: "/like/goodsLike",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                success: function (json) {
+                    alert(json)
+                },
+                error: function () {
+                    console.log("error");
+                },
+            });
+        }
+    </script>
+</div>
+
+<div th:fragment="boardLike">
+    <ul>
+        <button type="button" th:onclick="'javascript:boardLike(' + ${board.idx} + ')'">boardLike</button>
+    </ul>
+    <script>
+        function boardLike(idx) {
+            console.log(idx);
+            $.ajax({
+                type: 'POST',
+                data: {
+                    "board": idx
+                },
+                url: "/like/boardLike",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                success: function (json) {
+                    alert(json)
+                },
+                error: function () {
+                    console.log("error");
+                },
+            });
+        }
+    </script>
+</div>
+
+</html>

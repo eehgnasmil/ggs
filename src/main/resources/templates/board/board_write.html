@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
+<div layout:fragment="content" style="margin-bottom: 100px;">
+    <link rel="stylesheet" type="text/css" href="/board/css/boardWrite.css">	
+	<div class="boardWriteWrap">
+		<ul class="boardInfo">
+	        <li>작성자 | <span th:text="${nickname}"></li>
+	        <li>Category |&nbsp
+	            <select id="category">
+	                <option value="" selected>카테고리를 선택해주세요.</option>
+	                <option value="hip">hip</option>
+	                <option value="modern">modern</option>
+	            </select>
+	        </li>
+	        <li>제목 |&nbsp <input type="text" id="title" name="title" placeholder="제목을 입력해주세요."></li>
+		</ul>
+	    <div style="padding:8px 0; margin-top:10px;">착용 Item</div>
+		<ul class="wornItem">
+	        <li>
+	            <input type="checkbox" id="chkOuterwear" onchange="toggleTextbox(this, 'outerwearInput')">Outer
+	            <input type="text" id="outerwearInput" placeholder="착용제품">
+	        </li>
+	        <li>
+	            <input type="checkbox" id="chkTop" onchange="toggleTextbox(this, 'topInput')">Top
+	            <input type="text" id="topInput" placeholder="착용제품">
+	        </li>
+	        <li>
+	            <input type="checkbox" id="chkBottom" onchange="toggleTextbox(this, 'bottomInput')">Bottom
+	            <input type="text" id="bottomInput" placeholder="착용제품">
+	        </li>
+	        <li>
+	            <input type="checkbox" id="chkShoes" onchange="toggleTextbox(this, 'shoesInput')">Shoes
+	            <input type="text" id="shoesInput" placeholder="착용제품">
+	        </li>
+	        <li>
+	            <input type="checkbox" id="chkAcc" onchange="toggleTextbox(this, 'accInput')">Acc
+	            <input type="text" id="accInput" placeholder="착용제품">
+	        </li>			
+		</ul>
+	</div>
+    <ul>
+
+
+        <li style="padding:10px 0;">
+            <div th:insert="~{fragments/hashtag :: hashtag}"></div>
+        </li>
+        <li style="padding:10px 0;">
+            <div th:replace="~{fragments/teditor :: teditor}"></div>
+        </li>
+        <li>
+            <input type="text" id="outerwearInput" placeholder="outerwear" style="display: none;">
+        </li>
+    </ul>
+    <a th:href="@{/board/board_list}" style="width: 106px; height: 31px;font-weight: 600; background-color: #073F01; display:inline-block; color:white; border-radius: 5px; text-align: center; line-height: 31px; text-decoration: none;">뒤로가기</a>
+    <button class="postBtn" type="button" onclick="writesave()">등록</button>
+    <script th:src="@{/board/js/write.js}"></script>
+
+    </ul>
+</div>
+
+
+
+</html>

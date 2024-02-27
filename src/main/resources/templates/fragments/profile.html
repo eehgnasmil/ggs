@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="profile">
+	<link rel="stylesheet" type="text/css" href="/member/css/profile.css">
+	<div class="profileWrap">
+		<ul class="profile">
+			<li><img th:src="${member.img}" alt="프로필이미지"></li>
+			<li>닉네임</li>
+		</ul>
+		<div th:></div>
+	</div>
+	<script th:src="@{/member/js/profile.js}"></script>
+</div>
+</html>

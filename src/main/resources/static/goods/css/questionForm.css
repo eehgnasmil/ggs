@@ -1,0 +1,12 @@
+h4{text-align: center;}
+.questionForm{width: 1300px; margin: 0 auto;}
+.prouctInfo{}
+.prouctInfo .goodsImg{display: inline-block;}
+.prouctInfo ul{display: inline-block; vertical-align: top;}
+.prouctInfo ul li{height: 30px; padding:3px 0; line-height: 30px;}
+.question{}
+.question li{padding:15px 0; display: flex;}
+.question li input{flex:1; background:none; border: none; border-bottom: 1px solid black;outline: none; height: 25px; }
+textarea{width:100%; height: 500px; outline: none; border:none;}
+#category{padding:5px 10px; border-radius: 5px; font-weight: 600; background-color: black; color: white; margin-top: 50px;}
+.postBtn{margin-top:20px; padding:8px 30px; background-color: black; color: white; border-radius: 10px;}

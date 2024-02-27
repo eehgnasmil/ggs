@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .buyButton button{
+            border:2px solid #073f01;  background:none; color: #073f01; height: 40px; border-radius: 10px; font-weight: 900; padding: 10px 20px; font-size: 20px; line-height: 20px;
+        }
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mySwiper98 {
+            width: 100px!important;
+            height: max-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .mySwiper98 ul{
+            width: 95px;
+            display: block!important;
+        }
+
+        .swiper-slide {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .mySwiper99 {
+            height: 100%;
+            width: 100%;
+        }
+
+        .mySwiper98 {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 0;
+        }
+
+        .mySwiper98 .swiper-slide {
+            width: 33%;
+            height: 100%;
+            opacity: 0.4;
+        }
+
+        .mySwiper98 .swiper-slide-thumb-active {
+            opacity: 1;
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<div layout:fragment="content">
+    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/goods/update/${goods.idx}|}">수정</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/goods/delete/${goods.idx}|}">삭제</a>
+
+    <div th:fragment="goodsDetailFragment">
+        <link rel="stylesheet" type="text/css" href="/goods/css/detail.css">
+        <div class="goodsTop">
+            <div class="goodsImg" style="position:relative;">
+                <div class="swiper mySwiper99">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" th:each="fileDto : ${goods.fileDtos}">
+                            <img th:src="@{|${fileDto.path}|}" alt="Goods Image">
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <!-- Swiper JS -->
+                <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+                <script>
+                    var swiper = new Swiper(".mySwiper99", {
+                        direction: "vertical",
+                        slidesPerView: 1,
+                        spaceBetween: 30,
+                        mousewheel: true,
+                        pagination: {
+                            el: ".swiper-pagination",
+                            clickable: true,
+                        },
+                    });
+                </script>
+
+            </div>
+            <div class="goodsInfoWrap">
+                <div class="goodsInfo">
+                    <div class="cate" style="color:black; font-weight: 600; font-size: 20px; padding:0px 20px;">
+                        <span th:if="${goods.category == 1}" th:text="'Outer'"></span>
+                        <span th:if="${goods.category == 2}" th:text="'Top'"></span>
+                        <span th:if="${goods.category == 3}" th:text="'Bottom'"></span>
+                        <span th:if="${goods.category == 4}" th:text="'Accessory'"></span>
+                    </div>
+                    <div style="position: relative;">
+                        <div id="goodsName" th:text="${goods.name}" style="color:black; font-weight: 400; font-size: 30px;"></div>
+                        <div th:replace="~{fragments/like :: goodsLike(likeTF=${goods.likeTF})}"></div>
+                    </div>
+                    <div class="summary" style="color:#959595;font-weight: 400; font-size:15px; color: #878987; padding: 0px 20px; margin: 10px 0;">
+                        <span th:text="${goods.summary}"></span>
+                    </div>
+                    <table>
+                        <tr>
+                            <td style="font-size: 17px; text-decoration: line-through;"><span th:text="${goods.sellingPrice}" ></span>원</td>
+                        </tr>
+                        <tr>
+                            <td><span th:text="${goods.discountPrice}"></span>원</td>
+                        </tr>
+                    </table>
+                    <div class="goodsOptionBox">
+                        <table>
+                            <tr>
+                                <td>컬러</td>
+                                <td>
+									<span th:each="color : ${goods.colors}">
+										<button class="colorBtn" onclick="toggleColor(this)" th:value="${color}" th:text="${color}" th:name="${goods.idx}"></button>
+						            </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>사이즈</td>
+                                <td>
+									<span th:each="size : ${goods.sizes}">
+		                				<button class="sizeBtn dis" onclick="toggleSize(this)" th:value="${size}" th:text="${size}" th:name="${goods.idx}" disabled ></button>
+		                			</span>
+                                </td>
+                            </tr>
+                            <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="detailArea">
+                    <ul>
+                        <li><span th:utext="${goods.detail}"></span></li>
+                    </ul>
+                </div>
+
+                <div class="goodsReview">
+                    <div th:replace="~{goods/goodsReview :: review}"></div>
+                </div>
+
+                <div class="fixedInfo">
+                    <div class="optionOpen" style="text-align: center;">
+                        <img src="/img/up.png" alt="열기" onclick="openOption(this)" class="'open'+${goods.idx}" th:name="${goods.idx}" >
+                    </div><div th:class="'selectOption'+${goods.idx}+ ' sop'" style="display: none; border:1px solid black;     background: rgba(255, 255, 255, 0.8);"></div>
+                    <div sec:authorize="isAuthenticated()" class="buyButton">
+                        <button type="button"  th:name="${goods.idx}"  onclick="ischeckCart(this)">장 바 구 니</button>
+                        <button type="button"  th:name="${goods.idx}" onclick="ischeckBuy(this)">구 매</button>                        
+					    <a sec:authorize="hasRole('ROLE_USER')" th:href="@{|/goodsCS/goodsQuestion/${goods.idx}|}">상품 문의</a>                        
+                    </div>
+                    <div sec:authorize="isAnonymous()" class="buyButton">
+                        <button type="button"  th:name="${goods.idx}"   onclick="loginPage()">장 바 구 니</button>
+                        <button type="button"  th:name="${goods.idx}"  onclick="loginPage()">구 매</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form id="hiddenForm" th:method="POST" th:action="@{/order/orderForm}">
+            <!-- 히든 필드 추가 -->
+            <input type="hidden" id="orderItem" name="orderItem" />
+
+            <!-- 다른 필드들 및 버튼 등 추가 -->
+
+            <button type="button" onclick="submitForm()" style="display: none;">주문하기</button>
+        </form>
+
+        <script type="text/javascript" th:src="@{/goods/js/detail.js}"></script>
+        <script type="text/javascript" th:src="@{/order/js/cart.js}"></script>
+
+    </div>
+</div>
+
+</html>

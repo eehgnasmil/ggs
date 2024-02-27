@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+>
+<head>
+    <meta charset="UTF-8">
+</head>
+<div layout:fragment="content">
+    <link rel="stylesheet" type="text/css" href="/goods/css/questionForm.css">
+    <div class="questionForm" style="width: 1000px;">
+
+        <h4>문의 하기</h4>
+        <div class="container">
+            <form th:action="@{|/goodsCS/goodsQusetion|}" method="post" th:object="${question}"
+                  enctype="multipart/form-data">
+
+                <input type="hidden" th:field="*{idx}"/>
+                <input type="hidden" th:field="*{goodsIdx}"/>    
+                <div style="text-align: right;">
+	                <select id="category" name="category" th:field="*{category}" required>
+	                    <option value="" selected>문의내역을 선택해주세요</option>
+	                    <option value="1" th:selected="${question.category eq 1}">상품문의</option>
+	                    <option value="2" th:selected="${question.category eq 2}">주문/배송문의</option>
+	                </select>	                          					
+				</div>
+		        <div class="prouctInfo">
+											
+		                <div class="goodsImg" th:each="fileDto : ${goods.fileDtos}" th:name="${goods.idx}" >
+		                    <a th:href="@{|/goods/detail/${goods.idx}|}"><img th:src="@{|${fileDto.path}|}" alt="Goods Image" style="width: 120px"></a>
+		                </div>
+		            <ul style="margin-left: 20px;">						
+						<li>상품명 :&nbsp 
+		                    <span style="display: inline-block;" id="goodsName" th:text="${goods.name}"></span>
+						</li>
+						<li>상품설명 :&nbsp 
+		                    <span style="display: inline-block;" id="goodsName" th:text="${goods.summary}"></span>
+						</li>
+						<li>판매가 :&nbsp 
+		                    <span th:text="${goods.sellingPrice}+'원'"></span>									
+						</li>
+						<li>할인가 :&nbsp 
+		                    <span th:text="${goods.discountPrice}+'원'"></span>									
+						</li>
+		            </ul>
+		        </div>                
+                <ul class="question">				
+					<li>제목 :&nbsp 
+	                    <input type="text" id="title" name="title" th:field="*{title}" required/>								
+					</li>					
+	                <textarea th:field="*{question}"></textarea>												
+                </ul>
+                <button class="postBtn" type="submit">작성</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</html>

@@ -1,0 +1,29 @@
+.content {
+    padding: 0px 0 0 0!important;
+    background-color: #f0ebda;
+    flex: 1;
+    position: relative;
+    display: flex;
+    vertical-align: top;
+}
+h4{margin-bottom: 20px;}
+
+.Left_menu ul {
+    padding: 0px 30px;
+}
+.adminLeft{overflow: hidden; display: none;}
+.adminLeft{width: 250px; border-right: 3px solid #073f01;}
+.tOpen{width: 100px; height: 100px; position:absolute; right:-102px; top:450px;}
+.contents{flex:1; max-width: 1300px; margin:0 auto; height: 100vh; overflow-y: hidden;}
+#myContent{width:100%; margin-top: 80px; height: 100%;}
+.myContentWrap{    height: 100%;
+    overflow-y: scroll; }
+    .myContentWrap::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+.main_menu {
+    color: #0e3c06;
+    font-size: 25px;
+    font-weight: 700;
+    padding: 10px 0;
+}

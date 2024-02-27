@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+>
+<head>
+    <meta charset="UTF-8">
+</head>
+<div layout:fragment="content">
+    <h1>주문</h1>
+    <div class="container">
+        <div th:object="${order}">
+            <div>
+                <table>
+                    <tr><td>이름</td><td><span id="memberName" th:text="*{member.name}"></span></td></tr>
+                    <tr><td>전화번호</td><td><span id="memberPhone" th:text="*{member.phone}"></span></td></tr>
+                    <tr><td>이메일</td><td><span id="memberEmail" th:text="*{member.email}"></span></td></tr>
+                    <tr th:if="${order.member.postcode ne null}">
+                        <td>주소</td>
+                        <td>[<span id="memberPostcode" th:text="*{member.postcode}"></span>]
+                        <span id="memberPostaddress" th:text="*{member.postaddress}"></span>
+                        <span id="memberdetailaddress" th:text="*{member.detailaddress}"></span></span></td>
+                    </tr>
+                </table>
+                <div>
+                    <input type="text" id="sample6_postcode" placeholder="우편번호">
+                    <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                    <input type="text" id="sample6_address" placeholder="주소"><br>
+                    <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                    <input type="hidden" id="sample6_extraAddress" placeholder="참고항목" >
+                    <input type="button" value="저장" onclick="saveAddress()">
+                </div>
+            </div>
+            <hr>
+            구매 목록
+            <div th:each="cartItem, stat:*{cartItemDtos}">
+                <ul th:each="goods : ${cartItem.goodsDto}">
+                    <li th:each="fileDto : ${goods.fileDtos}">
+                        <img th:src="@{|/img/goods/${fileDto.sfile}|}" alt="Goods Image" width="50px">
+                    </li>
+                    <li><a th:href="@{|/goods/detail/${goods.idx}|}" th:text="${goods.name}"  th:id="'product_' + ${stat.index}"></a></li>
+                    <input type="hidden" class="products" th:value="${cartItem.idx}">
+                    <li><span>옵션 : </span><span th:text="${cartItem.color}"></span><span> &#47 </span><span
+                            th:text="${cartItem.size}"></span></li>
+                    수량: <span th:text="${cartItem.cnt}"/>
+                    <li class="itemPrices" th:text="${goods.sellingPrice*cartItem.cnt}"></li>
+                    <hr>
+                </ul>
+            </div>
+            할인금액
+            <div>
+                적립금 <input type="number" id="usePointInput">
+                <button type="button" onclick="usePoint()">사용</button>
+                총 적립금 <span id="myPoint" th:text="*{member.point}"></span>원
+            </div>
+            <hr>
+            결제정보
+            <div>
+                <span>주문상품</span> <span id="totalAmount"></span> 원<br>
+                <span>배송비</span> <span id="delivery"></span> 원<br>
+                <span>할인금액</span> <span id="discount"></span> 원<br>
+                <span>최종결제금액</span> <span id="finalPrice"></span> 원<br>
+            </div>
+            <div>
+                <button id="payment">구매하기</button>
+            </div>
+        </div>
+        <button onclick="test()">테스트</button>
+    </div>
+
+
+
+    <!-- 포트원 결제 -->
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <!-- 포트원 결제 -->
+    <script src="/order/js/payment.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="text/javascript" th:src="@{/order/js/order.js}"></script>
+
+
+</div>
+
+</html>

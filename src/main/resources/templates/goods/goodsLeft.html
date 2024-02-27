@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="goodsLeft">
+    <ul>
+        <li><a th:href="@{/goods/goodslist(category=${0})}">All</a></li>
+        <li><a th:href="@{/goods/goodslist(category=${1})}">Outer</a></li>
+        <li><a th:href="@{/goods/goodslist(category=${2})}">Top</a></li>
+        <li><a th:href="@{/goods/goodslist(category=${3})}">Bottom</a></li>
+        <li><a th:href="@{/goods/goodslist(category=${4})}">Accessory</a></li>
+    </ul>
+</div>
+</html>
+

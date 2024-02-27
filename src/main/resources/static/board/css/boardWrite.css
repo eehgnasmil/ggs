@@ -1,0 +1,26 @@
+.boardWriteWrap{font-weight: 600; font-size: 20px;}
+.boardWriteWrap{} .boardInfo{}
+.boardWriteWrap{} .boardInfo li{ padding:8px 0;     min-width: 1300px;}
+.boardWriteWrap{} .boardInfo li input{    vertical-align: middle;
+    padding-bottom: 5px;
+    border: none;
+    border-bottom: 1px solid black;
+    background: none;
+    width: 93%;
+    }
+.boardWriteWrap{} .boardInfo li input:focus{outline: none;}
+.boardWriteWrap{} .wornItem{
+  display: flex;
+  flex-wrap: wrap;}
+.boardWriteWrap .wornItem li{width:34%;  padding:5px 0; font-size: 18px;}
+.boardWriteWrap .wornItem li input:nth-child(1){margin-right:7px; accent-color: black;}
+.boardWriteWrap .wornItem li input:nth-child(2){display: none; border:none; border-bottom: 1px solid black; background:none; width:70%; margin-left:15px;     padding-bottom: 5px; }
+.boardWriteWrap .wornItem li input:nth-child(2):focus{outline: none;}
+.content{width: 80%; padding:80px 9% 0 9%;}
+#category{vertical-align: middle;
+    width:210px;
+    height: 23px;
+    background: black;
+    color: white;}
+   
+.postBtn{width:140px; height: 40px; color:white; font-size: 18px; font-weight: bold; background-color: #073F01; border-radius: 10px; display: block; margin:0 auto; letter-spacing: 5px;}

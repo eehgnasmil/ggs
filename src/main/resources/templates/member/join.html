@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">        
+<div layout:fragment="content">
+<!--joincss-->
+<link rel="stylesheet" type="text/css" href="/member/css/join.css">
+<!--joincss-->
+<!--ㅎㅇ?-->
+    <div class="content-title">
+        <h4 style="" >회원가입</h4>
+    </div>
+    
+    <div class="join_wrap">   
+      <ul class="join_form">
+	
+	    <ul class="files_input_ul" id="files_input_ul">
+            <div class="pImg">
+                <img src="/img/nProfile.png" id="uploadImage" alt="프로필 사진" onclick="triggerFileInput()">
+                <input type="file" accept="image/*" id="fileInput" style="display: none;" onchange="handleFileUpload()">
+            </div>
+	    </ul>
+          <li class="idForm">
+              <input type="text" id="id" name="id" class="" onblur="NullCheck(this)" oninput="check(this)" placeholder="아이디를 입력하세요">
+              <div class="p10" id="nid" name="nid" style="display: none;">사용 불가능한 아이디입니다.</div>
+              <div class="p10" style="display: none;">필수입력 사항 입니다.</div>
+          </li>
+          
+          <li class="passwordForm">
+              <input type="password" id="password1" name="password1" class="" onblur="NullCheck(this)" placeholder="패스워드를 입력하세요"><br>
+              <input type="password" id="password2" name="password2" class="" oninput="NullCheck(this)" placeholder="패스워드 확인">
+              <div class="p10" id="npw"style="display: none;">비밀번호가 일치하지 않습니다. 확인해주세요.</div>
+              <div class="p10" style="display: none;">필수입력 사항 입니다.</div>
+          </li>   
+
+          <li class="nameForm">
+              <input type="text" id="name" name="name" class="" onblur="NullCheck(this)" placeholder="이름을 입력하세요">
+              <div class="p10" style="display: none;">필수입력 사항 입니다.</div>
+              <div class="p10" style="display: none;">필수입력 사항 입니다.</div>
+          </li>
+
+         <li class="phoneForm">
+			<span>전화번호</span>
+            <input type="text" id="phone1" name="phone1" class="" onblur="NullCheck(this)" placeholder="010">
+            -
+            <input type="text" id="phone2" name="phone2" class="" onblur="NullCheck(this)" placeholder="1234">
+            -
+            <input type="text" id="phone3" name="phone3" class="" onblur="NullCheck(this)" placeholder="5678">
+            <div class="p10" style="display: none;">필수입력 사항 입니다.</div>
+            <div class="p10" style="display: none;">필수입력 사항 입니다.</div>
+         </li>
+      
+          <li class="nickForm">
+              <input type="text" id="nick" name="nick" - class="" onblur="NullCheck(this)" oninput="check(this)" placeholder="닉네임을 입력하세요">
+              <div class="p10" id="nnick" name="nick" style="display: none;">사용 불가능한 닉네임</div>
+              <div class="p10" style="display: none;">필수입력 사항 입니다.</div>
+          </li>
+      
+          <li class="emailForm">
+			  <span>이메일</span>
+              <input type="email" id="email" name="email" class="e1" onblur="NullCheck(this)" oninput="check(this)" placeholder="">
+              <span>@</span>
+              <input type="text" id="customEmail" name="customEmail" class="e2" placeholder="" style="display: none;" oninput="check(this)" onblur="NullCheck(this)">
+              <select id="emailForm" name="emailForm" onchange="updateInputValue()">
+                  <option value="" selected="selected">직접입력</option>
+                  <option value="naver.com">네이버</option>
+                  <option value="gmail.com">구글</option>
+                  <option value="hanmail.net">다음</option>
+              </select>
+            <br>
+            <div class="p10" id="nemail" name="nemail" style="display: none;">사용 불가능한 이메일</div>
+              <div class="p10" style="display: none;">필수입력 사항 입니다.</div>            
+              <button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호</button>
+              <div id="mail_number" name="mail_number" style="display: none">
+                  <input type="text" name="number" id="number" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
+                  <input type="hidden" id="Confirm" name="Confirm" style="display: none" value="">
+                  <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
+              </div>
+          </li>
+      </ul>         
+       <button id="signUpBtn" class="" onclick="join()" style="letter-spacing: 1px; font-weight: 900;">회원가입</button>
+      
+   </div>
+    <!--script-->
+    <script type="text/javascript" th:src="@{/member/js/join.js}"></script>
+    <!--script-->
+</div>
+</html>

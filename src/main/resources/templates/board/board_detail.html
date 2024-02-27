@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}">
+
+<head>
+    <title>게시물 상세 정보</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+    <div th:fragment="boardDetailFragment">		
+        <h1>게시물 상세 정보</h1>
+        <ul>
+            <li><a th:href="@{/board/board_list}">뒤로가기</a></li>
+            <li><a th:if="${board.memberidx == ridx}" th:href="@{/board/board_update/{idx}(idx=${board.idx})}">수정</a>
+            </li>
+            <li>
+                <div class="left_menu" th:insert="~{fragments/like :: boardLike}"
+                    th:if="${#authorization.expression('isAuthenticated()')}">
+                </div>
+            </li>
+            <li>
+                <form th:if="${board.memberidx== ridx}" th:action="@{/board/board_delete/{idx}(idx=${board.idx})}"
+                    method="post">
+                    <button type="submit">삭제</button>
+                </form>
+            </li>
+            <li>게시물번호</li>
+            <li th:text="${board.idx}"></li>
+            <li>제목</li>
+            <li th:text="${board.title}"></li>
+            <li>카테고리</li>
+            <li th:text="${board.category}"></li>
+            <li>닉네임</li>
+            <li th:text="${board.nickname}"></li>
+            <li>조회수</li>
+            <li th:text="${board.viewcount}"></li>
+            <li>좋아요</li>
+            <li th:text="${board.likesCount}"></li>
+            <li>등록일</li>
+            <li th:text="${#temporals.format(board.modifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></li>
+            <li>내용</li>
+            <li th:utext="${board.detail}"></li>
+            <li>해시태그</li>
+            <li>
+                <span th:each="hashtag : ${hashtags}" th:text="${hashtag.hashtag}"></span>
+            </li>
+            <li>착장정보/제품소개</li>
+            <li th:if="${board.outerwear}" th:text="${board.outerwear}"></li>
+            <li th:if="${board.top}" th:text="${board.top}"></li>
+            <li th:if="${board.bottom}" th:text="${board.bottom}"></li>
+            <li th:if="${board.shoes}" th:text="${board.shoes}"></li>
+            <li th:if="${board.acc}" th:text="${board.acc}"></li>
+        </ul>
+        <ul>
+            <!--<div th:insert="~{fragments/reply :: boardreply}"></div>-->
+        </ul>
+    </div>
+    </div>
+</body>
+
+</html>

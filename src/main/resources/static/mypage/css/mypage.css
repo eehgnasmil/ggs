@@ -1,0 +1,27 @@
+h4{
+	text-align: center;
+    font-size: 30px;
+    padding: 0 0 50px 0;
+}
+.content {
+    padding: 0px 0 0 0!important;
+    background-color: #f0ebda;
+    flex: 1;
+    position: relative;
+    display: flex;
+    vertical-align: top;
+    overflow-y: unset;    
+}
+.Left_menu ul {padding: 0px 30px; position: relative;}
+.contents{flex:1; max-width: 1300px; margin:0 auto; height: 100vh; overflow-y: hidden;}
+#myContent{width:100%; margin-top: 80px; height: 100%;}
+.myContentWrap{    height: 100%;
+    overflow-y: scroll; }
+    .myContentWrap::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+.memberInfo{margin:0 auto; width:700px; }
+.menu_wrap{margin-top: 0px;}
+.myLeft{width: 250px; border-right: 3px solid #073f01;}
+.myLeft {overflow: hidden; display: none;}
+.tOpen{width: 100px; height: 100px; position:absolute; right:-102px; top:450px}

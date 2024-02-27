@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="myGoodsQnAList">
+    <div class="myModify_wrap">
+        <div th:each="goodsQnA:${goodsQnA}">
+            <div th:each="goods:${goodsQnA.GoodsDto}">
+                <table>
+                    <tr>
+                        <td rowspan="3">
+                            <li th:each="fileDto : ${goods.fileDtos}">
+                                <img th:src="@{|${fileDto.path}|}" alt="Goods Image" width="50px">
+                            </li>
+                        </td>
+                        <td ><a th:href="@{|/goods/detail/${goods.idx}|}" th:text="${goods.name}"></a></td>
+                    </tr>
+                    <tr>
+                        </td>
+                        <td th:text="${goods.sellingPrice}"></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr><td>제목 </td><td th:text="${goodsQnA.title}"></td></tr>
+                    <tr><td>문의내용 </td><td th:text="${goodsQnA.question}"></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

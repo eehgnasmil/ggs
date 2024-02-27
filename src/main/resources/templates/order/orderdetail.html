@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+>
+<head>
+    <meta charset="UTF-8">
+</head>
+<div layout:fragment="content">
+    <h1>주문내역</h1>
+    <div class="container">
+        <div th:object="${order}">
+            <div>
+                주문번호 <span th:text="${order.orderNum}"></span> <br>
+                주문일자 <span th:text="${order.created_date}"></span> <br>
+                처리상태
+                <li th:if="${order.state == 0}"><span>주문 취소</span></li>
+                <li th:if="${order.state == 1}"><span>결제 완료</span><button type="button" th:onclick="'javascript:orderCancle(' + ${order.idx} + ')'">주문 취소</button></li>
+                <li th:if="${order.state == 2}"><span>배송 완료</span><button type="button" th:onclick="'javascript:orderCheck(' + ${order.idx} + ')'">구매 확정</button></li>
+                <li th:if="${order.state == 3}"><span>구매 확정</span></li>
+                <li th:if="${order.state == 4}"><span>구매 확정</span></li>
+
+            </div>
+            <hr>
+            <div>
+                이름 : <span id="memberName" th:text="*{member.name}"></span> <br>
+                <li class="postAddress">
+                    <label>주소</label>
+                    [<span id="memberPostcode" th:text="*{member.postcode}"></span>]
+                    <span id="memberPostaddress" th:text="*{member.postaddress}"></span>
+                    <span id="memberdetailaddress" th:text="*{member.detailaddress}"></span>
+                </li>
+                <li>
+                    전화번호 : <span id="memberPhone" th:text="*{member.phone}"></span>
+                </li>
+                <li>
+                    이메일 : <span id="memberEmail" th:text="*{member.email}"></span>
+                </li>
+            </div>
+            <hr>
+
+            구매 목록
+            <div th:each="cartItem, stat:*{cartItems}">
+                <ul th:if="${cartItem.goodsDto != null}" th:each="goods : ${cartItem.goodsDto}">
+                    <li th:each="fileDto : ${goods.fileDtos}">
+                        <img th:src="@{|/img/goods/${fileDto.sfile}|}" alt="Goods Image" width="50px">
+                    </li>
+                    <li><a th:href="@{|/goods/detail/${goods.idx}|}" th:text="${goods.name}"
+                           th:id="'product_' + ${stat.index}"></a></li>
+                    <input type="hidden" class="products" th:value="${cartItem.idx}">
+                    <li><span>옵션 : </span><span th:text="${cartItem.color}"></span><span> &#47 </span><span
+                            th:text="${cartItem.size}"></span></li>
+                    수량: <span th:text="${cartItem.cnt}"/>
+                    <li class="itemPrices" th:if="${goods.sellingPrice != null and cartItem.cnt != null}" th:text="${goods.sellingPrice * cartItem.cnt}"></li>
+                    <li th:if="${order.state == 3}"><span>구매 확정</span><a th:href="@{|/goodsCS/goodsReview/${cartItem.idx}|}"><button type="button">리뷰 작성</button></a></li>
+                    <hr>
+                </ul>
+            </div>
+            결제정보
+            <div>
+                상품구매금액 <span th:text="${order.price}"></span> + 배송비 <span th:text="${order.delivery_price}"></span>
+                = 총 <span th:text="${order.price} + ${order.delivery_price}"></span> 원
+            </div>
+            <a href="/mypage/myOrderList">주문목록</a>
+        </div>
+    </div>
+    <script type="text/javascript" th:src="@{/mypage/js/orderList.js}"></script>
+</div>
+</html>

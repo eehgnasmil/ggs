@@ -1,0 +1,45 @@
+.contents{
+	margin: 0 auto;
+    width: 530px;
+    }
+.p10{padding:10px 0; color:red; font-size: 10px;}
+input{
+	border: none;
+    background: #f4f4f4;
+    padding: 15px 20px;
+    width: 92%;
+	border-radius: 20px;    
+    }
+input:focus{    border-color:green; outline: none; }
+input::placeholder {color:#403f3f; font-weight: 600; }
+input::-webkit-input-placeholder {color:#403f3f; font-weight: 600;}
+input:-ms-input-placeholder {color:#403f3f; font-weight: 600;}
+.content-title{text-align: center; font-size: 30px; padding: 50px 0;}    
+.login_wrap{    min-height: 220px;
+    border: 2px solid black;
+    padding: 30px 30px;
+    border-radius: 20px;}
+.login_form li{padding:8px 0;}
+.loginBtn{
+	width: 466px;
+	bottom: 30px;
+	left:50%;
+	right: 50%;
+	transform: translate(-50%);	
+	position: absolute;
+    line-height: 20px;
+    border: none;
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+    background: black;
+    height: 46px;
+    display: block;
+    margin: 10px 0 0 0;
+    border-radius: 10px;
+}
+.findWrap{padding:10px 0; text-align: right;     margin-bottom: 70px;
+}
+.findWrap button{border:none; background:none;}
+.alert-danger{    color: red;
+    padding: 10px 0;}

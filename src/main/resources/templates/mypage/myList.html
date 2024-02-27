@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="myList">
+	<link rel="stylesheet" type="text/css" href="/mypage/css/modify.css">
+	<style>
+		.myLeft {display: block;}
+	</style>
+	<div class="content-title">
+	<div class="memberInfo">
+		<h4> 내 정보 </h4>
+	<div class="myModify_wrap" >
+
+		<div style="display:block;">
+			<div class="pImg" style="width: 150px; height: 150px;">
+				<img th:src="${member.FileDto.path}" id="uploadImage" alt="프로필 사진" onclick="triggerFileInput()">
+				<input type="file" accept="image/*" id="fileInput" style="display: none;" onchange="handleFileUpload()"/>
+				<input type="hidden" id="fileIdx" th:value="${member.FileDto.idx}"/>
+			</div>
+			<button type="button" th:onclick="'javascript:deleteImg(' + ${member.FileDto.idx} + ')'">기본 이미지</button>
+		</div>
+
+
+			<li class="idForm" th:name="${member.idx}">
+				<label>아이디</label>
+				<span id="id" th:text="${member.id}"></span>
+			</li>
+
+			<li class="passwordForm">
+				<label>패스워드</label>
+				<span>*************</span>
+				<button id="" class="mBtn" onclick="modifyPw()">수정</button>
+			</li>
+
+			<li class="modifyPwForm">
+				<input type="password" id="password0" name="password0" class="" onblur="NullCheck(this)" placeholder="현재 비밀번호">
+				<input type="password" id="password1" name="password1" class="" onblur="NullCheck(this)" placeholder="새 비밀번호를 입력하세요">
+				<input type="password" id="password2" th:name="${member.id}" class="" oninput="NullCheck(this)" placeholder="패스워드 확인">
+				<button id="" class="" onclick="prevPwCheck()">수정</button>
+				<div class="p10" style="display: none;">비밀번호가 일치하지 않습니다. 확인해주세요.</div>
+				<div class="p10" style="display: none;">필수입력 사항 일걸?</div>
+			</li>
+
+			<li class="nameForm">
+				<label>이름</label>
+				<span th:text="${member.name}"></span>
+			</li>
+
+			<li class="nickForm">
+				<label>닉네임</label>
+				<span th:text="${member.nick}"></span>
+				<button id="modifyBtn" class="class="mBtn"" onclick="modifyNick()">수정</button>
+			</li>
+
+			<li class="modifyNickForm">
+				<input type="text" id="nick" name="nick" - class="" onblur="NullCheck(this)" oninput="check(this)" placeholder="닉네임을 입력하세요">
+				<button id="" class="" name="" onclick="saveNick(this)">수정</button>
+				<div class="p10" id="nnick" name="nick" style="display: none;">사용 불가능한 닉네임</div>
+				<div class="p10" style="display: none;">필수입력 사항 일걸?</div>
+			</li>
+
+
+			<li class="emailForm">
+				<label>이메일</label>
+				<span th:text="${member.email}"></span>
+			</li>
+
+			<li class="point">
+				<label>포인트</label>
+				<span th:text="${member.point}"></span>
+			</li>
+
+			<li class="postAddress">
+				<label>주소</label>
+				<span th:text="${member.postaddress}"></span>
+				<span th:text="${member.detailaddress}"></span>
+				<button th:if="${member.postaddress==''}" id="modifyBtn" class="" onclick="createAddress()">등록</button>
+				<button th:unless="${member.postaddress==''}" id="modifyBtn" class="" onclick="modifyAddress()">수정</button>
+			</li>
+
+			<li class="postAddressM">
+				<div th:replace="~{/mypage/address :: address}"></div>
+			</li>
+
+		</ul>
+	</div>			
+	</div>  
+    <script type="text/javascript" th:src="@{/mypage/js/myList.js}"></script>	
+</div>
+</html>
