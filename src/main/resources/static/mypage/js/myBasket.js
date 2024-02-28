@@ -83,10 +83,12 @@ function deleteCart(idx){
     });
 }
 
-function changCnt(idx,cnt){
+function changCnt(idx,input){
+    var cnt = input.value
+
     if(cnt<1){
         alert("최소 한개 이상 선택해주세요")
-        history.go(0);
+        input.value = 1
         return
     }
     $.ajax({
@@ -100,7 +102,7 @@ function changCnt(idx,cnt){
             xhr.setRequestHeader(header, token);
         },
         success: function (json) {
-            history.go(0);
+            document.getElementById()
         },
         error: function () {
             console.log("error");

@@ -5,3 +5,7 @@ var token = $("meta[name='_csrf']").attr('content');
 $(function(){
 
 });
+
+function loginPage(){
+    alert('로그인해야되지ㅗㄹㅇ')
+}

@@ -17,7 +17,8 @@
                         <li><a th:href="@{|/goods/detail/${goods.idx}|}" th:text="${goods.name}"></a></li>
                         <li><span>옵션 : </span><span th:text="${cartItem.color}"></span><span> &#47 </span><span
                                 th:text="${cartItem.size}"></span></li>
-                        <input type="number" th:onchange="'javascript:changCnt(' + ${cartItem.idx} + ','+this.value+')'" th:value="${cartItem.cnt}"/>
+<!--                        <input type="number" th:onchange="'javascript:changCnt(' + ${cartItem.idx} + ','+this.value+')'" th:value="${cartItem.cnt}"/>-->
+                        <input type="number" th:onchange="'javascript:changCnt(' + ${cartItem.idx} + ','+this+')'" th:value="${cartItem.cnt}"/>
                         <li><span class="itemPrices" th:text="${goods.sellingPrice*cartItem.cnt}"></span>원</li>
                     </ul>
                 </li>
