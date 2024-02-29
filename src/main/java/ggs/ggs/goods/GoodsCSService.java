@@ -14,4 +14,6 @@ public interface GoodsCSService {
     Page<GoodsQnADto> findbyGoodsQnA(String id, int page);
 
     ReviewDto findbyOrderItem(Integer idx);
+
+	Page<GoodsQnADto> findbyGoodsQnA(int page);
 }

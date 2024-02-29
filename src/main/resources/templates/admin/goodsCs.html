@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="goodsCs" style="margin-bottom: 200px;">
+	<div th:each="goodsQnA:${goodsQnAs}">
+	 <form th:action="@{|/goodsCS/답변/${goodsQnA.idx}|}" method="post" th:object="${goodsQnA}">
+            <div th:each="goods:${goodsQnA.GoodsDto}">
+                <table>
+                    <tr>
+                        <td rowspan="3">
+                            <img th:src="@{|${goods.fileDtos[0].path}|}" alt="Goods Image" width="50px">
+                        </td>
+                        <td ><a th:href="@{|/goods/detail/${goods.idx}|}" th:text="${goods.name}"></a></td>
+                    </tr>
+                    <tr>
+                        </td>
+                        <td th:text="${goods.sellingPrice}"></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+						<td>제목</td>
+						<td>
+							<span th:text="${goodsQnA.title}"><span>
+						</td>
+					</tr>
+                    <tr>
+						<td>문의</td>
+						<td><span th:text="${goodsQnA.question}"><span></td>						
+					</tr>
+                    <tr>
+						<td>답변</td>
+						<td><textarea></textarea></td>												
+					</tr>
+                </table>
+            </div>
+		
+	</form>
+	</div>
+</div>
+</html>

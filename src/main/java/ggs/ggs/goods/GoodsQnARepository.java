@@ -12,4 +12,5 @@ public interface GoodsQnARepository extends JpaRepository<GoodsQnA,Integer> {
 
     Page<GoodsQnA> findAllByMemberOrderByIdxDesc(Pageable pageable, Member member);
 
+
 }

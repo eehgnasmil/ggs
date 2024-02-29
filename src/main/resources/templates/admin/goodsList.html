@@ -27,7 +27,7 @@
 				<td>상품명</td>
 				<td>판매가</td>
 				<td>할인가</td>
-				<td>수정</td>
+				<td>관리</td>
 			</tr>
 			<tr th:each="goods:${goods}">
 				<td style="text-align: center;">
@@ -45,8 +45,8 @@
 				<td>
                     <span th:text="${goods.discountPrice} +'원'" style="font-weight: 600;"></li>									
 				</td>
-				<td><a  th:href="@{|/goods/update/${goods.idx}|}">수정</a>
-    <a th:href="@{|/goods/delete/${goods.idx}|}">삭제</a></td>
+				<td><a  th:href="@{|/goods/update/${goods.idx}|}">수정</a> / 
+    			<a th:href="@{|/goods/delete/${goods.idx}|}">삭제</a></td>
 			</tr>
 			
 		</table>
