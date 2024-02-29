@@ -11,7 +11,7 @@
 					<li th:each="imageUrl : ${board.imageUrls}">
 						<img th:src="${imageUrl}" />
 					</li>
-					<li>카테고리: <span th:text="${board.category}"></span></li>
+					<li>카테고22222리: <span th:text="${board.category}"></span></li>
 					<li>작성자: <span th:text="${board.nickname}"></span></li>
 					<li>조회수: <span th:text="${board.viewcount}"></span></li>
 					<li>수정 날짜: <span th:text="${#temporals.format(board.modifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></span></li>
