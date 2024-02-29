@@ -56,4 +56,31 @@
     </script>
 </div>
 
+<div th:fragment="replyLike">
+        <button type="button" th:onclick="'javascript:replyLike(' + ${lists.idx} + ')'">replyLike</button>
+    <script>
+        function replyLike(idx) {
+            console.log(idx);
+            $.ajax({
+                type: 'POST',
+                data: {
+                    "reply": idx
+                },
+                url: "/like/replyLike",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                success: function (json) {
+                    alert(json)
+                },
+                error: function () {
+                    console.log("error");
+                },
+            });
+        }
+    </script>
+</div>
+<div th:fragment="childReplyLike">
+    <button type="button" th:onclick="'javascript:replyLike(' + ${childReply.idx} + ')'">replyLike</button>
+</div>
 </html>

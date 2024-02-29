@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -48,6 +47,7 @@ public class GoodsCSServiceImpl implements GoodsCSService{
         Pageable pageable = PageRequest.of(page,20);
         Member member = memberRepository.findByid(id).get();
         Page<GoodsQnA> goodsQnAS = goodsQnARepository.findAllByMemberOrderByIdxDesc(pageable, member) ;
+        System.out.println(goodsQnAS.stream().toList());
         return goodsQnAS.map(goodsQnA -> {
             GoodsQnADto goodsQnADto = new GoodsQnADto(goodsQnA);
             return goodsQnADto;
@@ -61,14 +61,4 @@ public class GoodsCSServiceImpl implements GoodsCSService{
         ReviewDto reviewDto = new ReviewDto(cartItemDto);
         return null;
     }
-
-	@Override
-	public Page<GoodsQnADto> findbyGoodsQnA(int page) {
-		Pageable pageable = PageRequest.of(page,20);
-		Page<GoodsQnA> goodsQnAs = goodsQnARepository.findAll(pageable);
-		 return goodsQnAs.map(goodsQnA -> {
-	            GoodsQnADto goodsQnADto = new GoodsQnADto(goodsQnA);
-	            return goodsQnADto;
-	        });
-	}
 }

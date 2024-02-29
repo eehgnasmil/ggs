@@ -11,5 +11,17 @@
     <script th:src="@{/hashtag/js/hashtag.js}"></script>
 </div>
 
+<div th:fragment="hashtagPage">
+    <h2>인기 해시태그</h2>
+    <li>
+        <span th:each="hashtagCount : ${topHashtags}">
+            <a th:href="@{'/board/hashtag/' + ${#strings.replace(hashtagCount.hashtag, '#', '%23')}}">
+                <span th:text="${hashtagCount.hashtag + ' (' + hashtagCount.count + ')'}"></span>
+            </a>
+        </span>
+    </li>
+</div>
+
+
 </html>
 

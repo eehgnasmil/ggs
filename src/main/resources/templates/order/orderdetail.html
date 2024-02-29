@@ -43,8 +43,8 @@
             구매 목록
             <div th:each="cartItem, stat:*{cartItems}">
                 <ul th:if="${cartItem.goodsDto != null}" th:each="goods : ${cartItem.goodsDto}">
-                    <li>
-                        <img th:src="@{|${goods.fileDtos[0].path}|}" alt="Goods Image" width="50px">
+                    <li th:each="fileDto : ${goods.fileDtos}">
+                        <img th:src="@{|/img/goods/${fileDto.sfile}|}" alt="Goods Image" width="50px">
                     </li>
                     <li><a th:href="@{|/goods/detail/${goods.idx}|}" th:text="${goods.name}"
                            th:id="'product_' + ${stat.index}"></a></li>

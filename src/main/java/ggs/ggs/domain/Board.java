@@ -54,6 +54,8 @@ public class Board {
     private String acc;
 
     private int likesCount;
+    private int reportCount;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberidx")
@@ -61,6 +63,9 @@ public class Board {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BoardLike> boardlike = new ArrayList<>();
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BoardReport> boardreport = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reply> replies = new ArrayList<>();
@@ -74,6 +79,9 @@ public class Board {
 
     public void setLikesCount(int likesCount) {
         this.likesCount = likesCount;
+    }
+    public void setReportCount(int reportCount) {
+        this.reportCount = reportCount;
     }
 
     public void update(BoardDto dto) {

@@ -3,11 +3,14 @@ package ggs.ggs.board;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import ggs.ggs.domain.Board;
 import ggs.ggs.domain.Hashtag;
 import ggs.ggs.domain.MiddleTag;
+import ggs.ggs.dto.HashtagCountDto;
 import ggs.ggs.service.HashtagService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -72,13 +75,13 @@ public class BoardTagServiceImpl implements HashtagService {
         }
     }
 
-    // @Transactional
-    // public Page<BoardDto> getBoardsByHashtag(String hashtag, int page, int size) {
-    //     Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "board.modifiedDate");
-    //     Hashtag targetHashtag = hashtagRepository.findByHashtag(hashtag)
-    //             .orElseThrow(() -> new IllegalArgumentException("해시태그를 찾을 수 없습니다: " + hashtag));
-    //     Page<MiddleTag> middleTags = middleTagRepository.findByHashtagOrderByBoardModifiedDateDesc(targetHashtag,
-    //             pageable);
-    //     return middleTags.map(middleTag -> BoardDto.convertToDto(middleTag.getBoard()));
-    // }
+    @Override
+    public List<HashtagCountDto> getTop7Hashtags() {
+        Pageable topTen = PageRequest.of(0, 7);
+        List<Object[]> topHashtags = middleTagRepository.findTopHashtags(topTen);
+
+        return topHashtags.stream()
+                .map(result -> new HashtagCountDto((String) result[0], (Long) result[1]))
+                .collect(Collectors.toList());
+    }
 }

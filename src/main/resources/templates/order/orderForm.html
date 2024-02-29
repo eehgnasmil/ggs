@@ -8,74 +8,67 @@
     <meta charset="UTF-8">
 </head>
 <div layout:fragment="content">
-	<link rel="stylesheet" type="text/css" href="/order/css/orderForm.css">	
+    <h1>주문</h1>
     <div class="container">
-    <h2 class="title">주문하기</h2>
-        <h2 th:object="${order}">
-			<div style="font-size: 20px; font-weight: 600; margin:30px 0">구매자 정보</div>
-			<hr>
-            <ul class="orderInfo">
-				<li><span id="memberName" th:name="*{member.idx}" th:text="*{member.name}"></span></li>
-				<li><span id="memberPhone" th:text="*{member.phone}"></span></li>
-                <li><span id="memberEmail" th:text="*{member.email}"></span></li>
-                
-                <li th:if="${order.member.postcode ne null}">
-					<label>주소</label>
-					<span th:text="*{member.postaddress}"></span>
-					<span th:text="*{member.detailaddress}"></span>
-					<button th:if="*{member.postaddress==''}" id="modifyBtn" class="" onclick="createAddress()">주소 등록</button>
-					<button th:unless="*{member.postaddress==''}" id="modifyBtn" class="" onclick="modifyAddress()">배송지 변경</button>
-				</li>
-	
-				<li class="postAddressM">
-					<div th:replace="~{/mypage/address :: address}"></div>
-				</li>                                
-            </ul>
-			<hr>
-			<div style="font-size: 20px; font-weight: 600; margin:30px 0; margin-top: 50px;">주문 정보</div>
-			<hr>						
-            <table>
-            <tr class="tableTr">
-                <td>이미지</td>
-                <td>상품정보</td>
-                <td>수량</td>
-                <td>상품가격</td>
-            </tr>
- 				<div th:each="cartItem, stat:*{cartItemDtos}">			 
-	                <tr th:each="goods : ${cartItem.goodsDto}" style="border-top: none;">
-	                    <td style="width: 80px;">
-	                        <ul >
-	                            <li>
-	                                <img th:src="@{|${goods.fileDtos[0].path}|}" alt="Goods Image" width="100%;">
-	                            </li>
-	                        </ul>
-	                    </td>
-	                    <td class="goodsInfo" style="text-align: left; padding:0 30px;">
-	                        <a th:href="@{|/goods/detail/${goods.idx}|}" th:text="${goods.name}"  th:id="'product_' + ${stat.index}"></a><br><br>
-	                        <span th:text="${cartItem.color}"></span>&nbsp&#47
-	                        <span th:text="${cartItem.size}"></span>
-	                    </td>
-	                    <td><span th:text="${cartItem.cnt}"/></td>
-	                    <td> <span class="itemPrices" th:text="${goods.sellingPrice*cartItem.cnt}"></span>원</td>
-	                    
-	                </tr>
-				 </div>
-				 
-        </table>
-            <div style="padding:20px 0; text-align: left;">
-				사용가능 적립금 <span id="myPoint" th:text="*{member.point}" style="font-size: 17px; font-weight: 800;"></span>원<br>
-                <div style="padding:5px 0">적립금 <input type="number" id="usePointInput">
-                <button type="button" onclick="usePoint()">사용</button>
+        <div th:object="${order}">
+            <div>
+                <table>
+                    <tr><td>이름</td><td><span id="memberName" th:text="*{member.name}"></span></td></tr>
+                    <tr><td>전화번호</td><td><span id="memberPhone" th:text="*{member.phone}"></span></td></tr>
+                    <tr><td>이메일</td><td><span id="memberEmail" th:text="*{member.email}"></span></td></tr>
+                    <tr th:if="${order.member.postcode ne null}">
+                        <td>주소</td>
+                        <td>[<span id="memberPostcode" th:text="*{member.postcode}"></span>]
+                        <span id="memberPostaddress" th:text="*{member.postaddress}"></span>
+                        <span id="memberdetailaddress" th:text="*{member.detailaddress}"></span></span></td>
+                    </tr>
+                </table>
+                <div>
+                    <input type="text" id="sample6_postcode" placeholder="우편번호">
+                    <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                    <input type="text" id="sample6_address" placeholder="주소"><br>
+                    <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                    <input type="hidden" id="sample6_extraAddress" placeholder="참고항목" >
+                    <input type="button" value="저장" onclick="saveAddress()">
                 </div>
-                <span>상품</span> <span id="totalAmount" style="font-size: 17px; font-weight: 800;"></span>원 + <span>배송비</span> <span id="delivery" style="font-size: 17px; font-weight: 800;"></span>원 + <span>할인금액</span> <span id="discount" style="font-size: 17px; font-weight: 800;">0</span>원
             </div>
-            <div style="text-align: right;"><span style="font-size: 20px;">최종결제금액</span> <span id="finalPrice" style="font-size: 20px; font-weight: 800;"></span><span style="font-size: 20px;">원</span></div>             
             <hr>
-            <div style="text-align: right;">
+            구매 목록
+            <div th:each="cartItem, stat:*{cartItemDtos}">
+                <ul th:each="goods : ${cartItem.goodsDto}">
+                    <li th:each="fileDto : ${goods.fileDtos}">
+                        <img th:src="@{|/img/goods/${fileDto.sfile}|}" alt="Goods Image" width="50px">
+                    </li>
+                    <li><a th:href="@{|/goods/detail/${goods.idx}|}" th:text="${goods.name}"  th:id="'product_' + ${stat.index}"></a></li>
+                    <input type="hidden" class="products" th:value="${cartItem.idx}">
+                    <li><span>옵션 : </span><span th:text="${cartItem.color}"></span><span> &#47 </span><span
+                            th:text="${cartItem.size}"></span></li>
+                    수량: <span th:text="${cartItem.cnt}"/>
+                    <li class="itemPrices" th:text="${goods.sellingPrice*cartItem.cnt}"></li>
+                    <hr>
+                </ul>
+            </div>
+            할인금액
+            <div>
+                적립금 <input type="number" id="usePointInput">
+                <button type="button" onclick="usePoint()">사용</button>
+                총 적립금 <span id="myPoint" th:text="*{member.point}"></span>원
+            </div>
+            <hr>
+            결제정보
+            <div>
+                <span>주문상품</span> <span id="totalAmount"></span> 원<br>
+                <span>배송비</span> <span id="delivery"></span> 원<br>
+                <span>할인금액</span> <span id="discount"></span> 원<br>
+                <span>최종결제금액</span> <span id="finalPrice"></span> 원<br>
+            </div>
+            <div>
                 <button id="payment">구매하기</button>
-		        <button onclick="test()">테스트</button>
             </div>
         </div>
+        <button onclick="test()">테스트</button>
+    </div>
+
 
 
     <!-- 포트원 결제 -->
@@ -87,9 +80,9 @@
     <!-- 포트원 결제 -->
     <script src="/order/js/payment.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script type="text/javascript" th:src="@{/mypage/js/myList.js}"></script>	
-    <script type="text/javascript" th:src="@{/member/js/join.js}"></script>	      
     <script type="text/javascript" th:src="@{/order/js/order.js}"></script>
+
+
 </div>
 
 </html>

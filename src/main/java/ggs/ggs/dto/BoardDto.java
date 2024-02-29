@@ -37,6 +37,7 @@ public class BoardDto {
 
     private List<String> imageUrls = new ArrayList<>(); // 이미지 URL을 저장할 필드
 
+
     public BoardDto(Board board) {
         this.idx = board.getIdx();
         this.title = board.getTitle();

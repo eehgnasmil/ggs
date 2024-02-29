@@ -15,6 +15,5 @@ public interface LikeService {
 
     Page<Object> likeList(String sid, int page);
 
-   
 
 }

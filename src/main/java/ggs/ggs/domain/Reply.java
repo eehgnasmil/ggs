@@ -58,15 +58,31 @@ public class Reply {
     @ManyToOne(fetch = FetchType.LAZY)
     private Reply parent;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reply> childReplies = new ArrayList<>();
-
     @CreationTimestamp
     private LocalDateTime createdDate;
 
     @UpdateTimestamp
     private LocalDateTime modifiedDate;
 
+    private int likesCount;
+    private int reportCount;
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reply> childReplies = new ArrayList<>();
+
+    @OneToMany(mappedBy = "reply", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReplyLike> replylike = new ArrayList<>();
+
+    @OneToMany(mappedBy = "reply", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReplyReport> replyreport = new ArrayList<>();
+
+    public void setLikesCount(int likesCount) {
+        this.likesCount = likesCount;
+    }
+
+    public void setReportCount(int reportCount) {
+        this.reportCount = reportCount;
+    }
 
     public void updateReply(ReplyDto replyDto, Member member, Board board) {
         this.comment = replyDto.getComment();
@@ -77,5 +93,5 @@ public class Reply {
     public void setParent(Reply parent) {
         this.parent = parent;
     }
-    
+
 }

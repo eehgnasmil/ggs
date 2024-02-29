@@ -28,6 +28,7 @@ public class ReplyDto {
     private LocalDateTime modifiedDate;
     private List<ReplyDto> childReplies = new ArrayList<>();
 
+
     public Reply toEntity(Member member, Board board, Reply parent) {
         return Reply.builder()
                 .comment(this.comment)

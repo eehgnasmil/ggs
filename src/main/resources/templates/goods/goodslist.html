@@ -33,6 +33,7 @@
         <ul style="width: 100%; display: flex; flex-wrap: wrap;">
             <li th:each="goods:${goods}" style="width: 25%; padding:0 0 30px 0; display:inline-block; text-align: center; ">
                 <ul class="goodsL">
+                    <input type="checkbox" class="checkItem" name="goods" onclick="updateAllCheck()" th:value="${goods.idx}"  checked/>
                     <div style="position:relative; height: 0; padding-bottom:120%; overflow:hidden;" class="mySwiper2 swiper">
                         <div class="swiper-wrapper">
                             <li th:each="fileDto : ${goods.fileDtos}" th:name="${goods.idx}" class="button swiper-slide" style="padding-bottom:130%;">
@@ -67,7 +68,7 @@
             });
         </script>
 
-        
+        <script type="text/javascript" th:src="@{/goods/js/adminList.js}"></script>
 
 
         <!--    페이징-->

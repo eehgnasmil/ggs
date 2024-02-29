@@ -42,17 +42,4 @@ public class MiddleTag {
     public String getHashtagName() {
         return hashtag != null ? hashtag.getHashtag() : null;
     }
-
-    // 댓글은 나중에
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "reply_idx")
-    // private Reply reply;
-
-    // 생성자 또는 빌더를 사용하여 필드를 설정할 수 있습니다.
-    // public MiddleTag(Board board, Goods goods, Reply reply, Hashtag hashtag) {
-    // this.board = board;
-    // this.goods = goods;
-    // this.reply = reply;
-    // this.hashtag = hashtag;
-    // }
 }

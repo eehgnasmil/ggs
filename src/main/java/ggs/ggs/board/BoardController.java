@@ -5,6 +5,7 @@ import java.util.*;
 import ggs.ggs.domain.Hashtag;
 import ggs.ggs.domain.Member;
 import ggs.ggs.dto.BoardDto;
+import ggs.ggs.dto.HashtagCountDto;
 import ggs.ggs.dto.ReplyDto;
 import ggs.ggs.member.MemberRepository;
 import ggs.ggs.service.HashtagService;
@@ -95,7 +96,8 @@ public class BoardController {
         Pageable pageable = PageRequest.of(0, 15, sort);
         Page<BoardDto> boardList = boardService.getAllBoards(category, bsort,
                 pageable);
-
+        List<HashtagCountDto> topHashtags = hashtagService.getTop7Hashtags();
+        model.addAttribute("topHashtags", topHashtags);
         model.addAttribute("boardList", boardList.getContent());
         model.addAttribute("category", category);
         return "board/board_list";
@@ -204,6 +206,8 @@ public class BoardController {
             @RequestParam(value = "size", defaultValue = "10") int size,
             Model model) {
         Page<BoardDto> boardList = boardService.getBoardsByHashtag(hashtag, page, size); // 수정된 부분
+        List<HashtagCountDto> topHashtags = hashtagService.getTop7Hashtags();
+        model.addAttribute("topHashtags", topHashtags);
         model.addAttribute("boardList", boardList);
         return "board/hashtag_list";
     }

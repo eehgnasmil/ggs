@@ -9,11 +9,14 @@ import ggs.ggs.goods.GoodsLikeServiceImpl;
 import ggs.ggs.member.MemberService;
 import ggs.ggs.order.OrderService;
 import ggs.ggs.service.LikeService;
+import ggs.ggs.service.ReplyService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,6 +53,10 @@ public class MypageController {
     private final @Qualifier("goodsLikeServiceImpl") GoodsLikeServiceImpl goodsLikeService;
 
     @Autowired
+    @Qualifier("boardReplyServiceImpl")
+    private final ReplyService replyService;
+
+    @Autowired
     @Qualifier("boardLikeServiceImpl")
     private LikeService boardLikeService;
     private final BoardService boardService;
@@ -82,6 +89,8 @@ public class MypageController {
                 break;
 
             case "myReply":
+                Page<BoardDto> myReply = boardService.getBoardsByUserReplies(id, page);
+                model.addAttribute("myReply", myReply);
                 break;
 
             case "myBoardLike":

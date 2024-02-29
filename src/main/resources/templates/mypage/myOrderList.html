@@ -1,54 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="myOrderList">
-    <link rel="stylesheet" type="text/css" href="/mypage/css/myOrderList.css">	
-    <h2 class="title">구매 내역</h2>
-	<div class="myModify_wrap" style="margin-top: 50px;">
-			<table>
-				<tr class="tableTr">
-					<td>이미지</td>
-					<td>상품정보</td>
-					<td>주문정보</td>
-					<td>상태</td>
-					<td>상품가격</td>
-					<td>금액</td>
-				</tr>
-				<tr th:each="order:${orderItem}">
-					<div th:each="cartItem, stat:*{order.cartItems}">
-						<ul th:if="${cartItem.goodsDto != null}" th:each="goods : ${cartItem.goodsDto}">
-							<input type="hidden" class="products" th:value="${cartItem.idx}">						
-							<td style="width: 80px;">
-								<img th:src="@{|${goods.fileDtos[0].path}|}" alt="Goods Image" width="100%">							
-							</td>
-							<td style="text-align: left;">
-								<span style="display: block;">상품명 :  <a th:href="@{|/goods/detail/${goods.idx}|}" th:text="${goods.name}"  th:id="'product_' + ${stat.index}"></a></span><br>						
-								옵션 : <span th:text="${cartItem.color}"></span> &#47
-								<span th:text="${cartItem.size}"></span><br><br>
-								수량 : <span th:text="${cartItem.cnt}"/>												
-							</td>
-							<td style="text-align: left;">
-								주문번호 : <span><a th:href="|/order/orderdetail/${order.idx}|" th:text="${order.orderNum}"></a></span><br><br>			
-								주문일자 : <span th:text="${order.created_date}"></span>									
-							</td>
-							<td>
-								<li th:if="${order.state == 0}">주문 취소</li>
-								<li style="list-style: none;" th:if="${order.state == 1}">결제 완료<br><button type="button" th:onclick="'javascript:orderCancle(' + ${order.idx} + ')'">주문 취소</button></li>
-								<li style="list-style: none;" th:if="${order.state == 2}">배송 완료<br><button type="button" th:onclick="'javascript:orderCheck(' + ${order.idx} + ')'">구매 확정</button></li>
-								<li style="list-style: none;" th:if="${order.state == 3}">구매 확정<br><button type="button" th:onclick="'javascript:writeReview(' + ${order.idx} + ')'">리뷰 작성</button></li>
-								<li style="list-style: none;" th:if="${order.state == 4}">구매 확정</li>						
-							</td>
-							<td>
-								<span class="itemPrices" th:if="${goods.sellingPrice != null and cartItem.cnt != null}" th:text="${goods.sellingPrice * cartItem.cnt}+'원'"></span>					
-							</td>
-							<td style="text-align: right;">
-								상품가격 <span th:text="${order.price}" style="font-weight: 800;"></span><span style="font-weight: 800;" >원</span><br>
-								+ 배송비 <span th:text="${order.delivery_price}" style="font-weight: 800;"></span><span style="font-weight: 800;">원</span><br><br>
-								TOTAL = <span th:text="${order.price} + ${order.delivery_price}" style="font-weight: 800;"></span><span style="font-weight: 800;">원</span>						
-							</td>
-						</ul>					
-					</div>						
-				</tr>
-			</table>
+	<div class="myModify_wrap">
+		<div th:each="order:${orderItem}">
+			<div>
+				주문번호 <a th:href="|/order/orderdetail/${order.idx}|" th:text="${order.orderNum}"></a> <br>
+				주문일자 <span th:text="${order.created_date}"></span> <br>
+
+				처리상태
+				<li th:if="${order.state == 0}"><span>주문 취소</span></li>
+				<li th:if="${order.state == 1}"><span>결제 완료</span><button type="button" th:onclick="'javascript:orderCancle(' + ${order.idx} + ')'">주문 취소</button></li>
+				<li th:if="${order.state == 2}"><span>배송 완료</span><button type="button" th:onclick="'javascript:orderCheck(' + ${order.idx} + ')'">구매 확정</button></li>
+				<li th:if="${order.state == 3}"><span>구매 확정</span><button type="button" th:onclick="'javascript:writeReview(' + ${order.idx} + ')'">리뷰 작성</button></li>
+				<li th:if="${order.state == 4}"><span>구매 확정</span></li>
+			</div>
+			<div th:each="cartItem, stat:*{order.cartItems}">
+				<ul th:if="${cartItem.goodsDto != null}" th:each="goods : ${cartItem.goodsDto}">
+					<li th:each="fileDto : ${goods.fileDtos}">
+						<img th:src="@{|/img/goods/${fileDto.sfile}|}" alt="Goods Image" width="50px">
+					</li>
+					<li><a th:href="@{|/goods/detail/${goods.idx}|}" th:text="${goods.name}"  th:id="'product_' + ${stat.index}"></a></li>
+					<input type="hidden" class="products" th:value="${cartItem.idx}">
+					<li><span>옵션 : </span><span th:text="${cartItem.color}"></span><span> &#47 </span><span
+							th:text="${cartItem.size}"></span></li>
+					수량: <span th:text="${cartItem.cnt}"/>
+					<li class="itemPrices" th:if="${goods.sellingPrice != null and cartItem.cnt != null}" th:text="${goods.sellingPrice * cartItem.cnt}"></li>
+				</ul>
+			</div>
+			<div>
+				상품구매금액 <span th:text="${order.price}"></span> + 배송비 <span th:text="${order.delivery_price}"></span>
+				= 총 <span th:text="${order.price} + ${order.delivery_price}"></span> 원
+			</div>
+			<hr>
+		</div>
 
 		<div th:if="${!orderItem.isEmpty()}">
 			<ul class="pagination justify-content-center">

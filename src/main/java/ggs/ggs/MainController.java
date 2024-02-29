@@ -3,10 +3,13 @@ package ggs.ggs;
 import ggs.ggs.board.BoardService;
 import ggs.ggs.dto.BoardDto;
 import ggs.ggs.dto.GoodsDto;
+import ggs.ggs.dto.HashtagCountDto;
 import ggs.ggs.goods.GoodsService;
+import ggs.ggs.service.HashtagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class MainController {
@@ -27,6 +31,9 @@ public class MainController {
     @Autowired
     @Qualifier("goodsServiceImpl")
     private final GoodsService goodsService;
+
+    @Qualifier("boardTagServiceImpl")
+    private final HashtagService hashtagService;
 
     @GetMapping("/")
     public String home(@RequestParam(name = "pageScroll", defaultValue = "defaultScroll") String pageScroll,
@@ -43,8 +50,10 @@ public class MainController {
         } else {
             goods = goodsService.findAll(category);
         }
-        model.addAttribute("boardList", boardList);
-        model.addAttribute("cate",cate);
+
+        List<HashtagCountDto> topHashtags = hashtagService.getTop7Hashtags();
+        model.addAttribute("topHashtags", topHashtags);
+        model.addAttribute("cate", cate);
         model.addAttribute("category", category);
         model.addAttribute("goods", goods);
         model.addAttribute("pageScroll", "pageScroll");
@@ -52,6 +61,5 @@ public class MainController {
 
         return "home";
     }
-
 
 }

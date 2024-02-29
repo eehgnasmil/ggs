@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="boardReport">
+    <ul>
+        <button type="button" th:onclick="'javascript:boardReport(' + ${board.idx} + ')'">boardReport</button>
+    </ul>
+    <script>
+        function boardReport(idx) {
+            console.log(idx);
+            $.ajax({
+                type: 'POST',
+                data: {
+                    "board": idx
+                },
+                url: "/report/boardReport",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                success: function (json) {
+                    alert(json)
+                },
+                error: function () {
+                    console.log("error");
+                },
+            });
+        }
+    </script>
+</div>
+
+<div th:fragment="replyReport">
+    <button type="button" th:onclick="'javascript:replyReport(' + ${lists.idx} + ')'">replyReport</button>
+    <script>
+        function replyReport(idx) {
+            console.log(idx);
+            $.ajax({
+                type: 'POST',
+                data: {
+                    "reply": idx
+                },
+                url: "/report/replyReport",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                success: function (json) {
+                    alert(json)
+                },
+                error: function () {
+                    console.log("error");
+                },
+            });
+        }
+    </script>
+</div>
+
+<div th:fragment="childReplyReport">
+    <button type="button" th:onclick="'javascript:replyReport(' + ${childReply.idx} + ')'">replyReport</button>
+</div>
+
+</html>

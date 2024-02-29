@@ -35,6 +35,10 @@
     <a sec:authorize="isAuthenticated()" th:href="@{/board/board_write}">글쓰기</a>
     <a sec:authorize="!isAuthenticated()" href="/member/login">글쓰기</a>
 
+	<ul>
+		<div th:insert="~{fragments/hashtag :: hashtagPage}"></div>
+	  </ul>
+
     <ul id="categoryList">
         <li><a href="/board/board_list?category=all">All</a></li>
         <li><a href="/board/board_list?category=hip">Hip</a></li>

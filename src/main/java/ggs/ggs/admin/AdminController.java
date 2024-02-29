@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import ggs.ggs.board.BoardService;
 import ggs.ggs.dto.GoodsDto;
-import ggs.ggs.dto.GoodsQnADto;
-import ggs.ggs.goods.GoodsCSService;
 import ggs.ggs.goods.GoodsService;
 import lombok.RequiredArgsConstructor;
 
@@ -37,11 +35,7 @@ public class AdminController {
     @Qualifier("goodsServiceImpl")
     private final GoodsService goodsService;
     private String id = null;
-    
-    @Autowired
-    @Qualifier("goodsCSServiceImpl")
-    private final GoodsCSService goodsCSService;
-    
+
     //관리자
     @GetMapping("/{title}")
     public String myModify(@PathVariable("title") String title, Model model, Authentication authentication,
@@ -71,11 +65,6 @@ public class AdminController {
             	model.addAttribute("sortValue", sortValue);
                 model.addAttribute("category", category);
                 break;
-                
-            case "goodsCs":
-                Page<GoodsQnADto> goodsQnADtos = goodsCSService.findbyGoodsQnA(page);
-                model.addAttribute("goodsQnAs", goodsQnADtos);
-            	break;
 
             case "myBoard":
 
