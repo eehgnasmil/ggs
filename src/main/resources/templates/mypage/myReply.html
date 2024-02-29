@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="myReply">
+	<div class="myModify_wrap">
+		<h2>댓글 작성한 게시판</h2>
+		<ul>
+			<li th:each="board:${myReply}">
+				<ul>
+					<li>게시판 ID: <a th:href="@{/board/board_detail/{idx}(idx=${board.idx})}" th:text="${board.idx}"></a></li>
+					<li>제목: <span th:text="${board.title}"></span></li>
+					<li th:each="imageUrl : ${board.imageUrls}">
+						<img th:src="${imageUrl}" />
+					</li>
+					<li>카테고리: <span th:text="${board.category}"></span></li>
+					<li>작성자: <span th:text="${board.nickname}"></span></li>
+					<li>조회수: <span th:text="${board.viewcount}"></span></li>
+					<li>수정 날짜: <span th:text="${#temporals.format(board.modifiedDate, 'yyyy-MM-dd HH:mm:ss')}"></span></li>
+				</ul>
+			</li>
+		</ul>
+		<div th:if="${!myReply.isEmpty()}">
+			<a th:href="@{|/mypage/myReply?page=${myReply.number-1}|}" th:if="${myReply.hasPrevious()}">이전</a>
+			<a th:href="@{|/mypage/myReply?page=${myReply.number+1}|}" th:if="${myReply.hasNext()}">다음</a>
+		</div>
+	</div>	
+</div>
+</html>
