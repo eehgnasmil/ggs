@@ -1,0 +1,17 @@
+button{background-color:black; border: none; color: white; padding:5px 10px; border-radius: 5px;}
+.container{width: 1300px; margin:0 auto;}
+.container table{width: 100%;}
+.tableTr{text-align: center;}
+.container table tr td{vertical-align: middle; border-bottom: 1px solid black; padding:10px 20px; text-align: center;}
+.container table tr td input{width: 50px; margin:0 auto;}
+.pBtn {margin-top: 50px;}
+.pBtn button{background: black; color: white; padding:5px 20px; border-radius: 5px; border:none;}
+.postAddressM{display: none;}
+.postAddressM input{width: 15%; height: 30px; background: none; border: none; outline: none;}
+.orderInfo{}
+.orderInfo li{padding: 5px 0;}
+hr{    background:black;
+    height:2px;
+    border:0;
+    }
+.orderInfo{padding: 10px 0;}

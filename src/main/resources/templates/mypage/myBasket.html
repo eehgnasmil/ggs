@@ -14,38 +14,45 @@
                 <td>상품가격</td>
                 <td>기타</td>
             </tr>
-            <form th:method="POST" th:action="@{/order/orderForm}" th:each="cartItem:${cartItem}"  onsubmit="return validateForm()">
-                <tr th:each="goods : ${cartItem.goodsDto}">
-                    <td style="width: 10px; padding:0 0"><input type="checkbox" class="checkItem" name="orderItem" onclick="updateAllCheck()" th:value="${cartItem.idx}" checked/></td>
-                    <td style="width: 80px;">
-                        <ul >
-                            <li>
-                                <img th:src="@{|${goods.fileDtos[0].path}|}" alt="Goods Image" width="100%;">
-                            </li>
-                        </ul>
-                    </td>
-                    <td class="goodsInfo" style="text-align: left; padding:0 30px;">
-                        <a th:href="@{|/goods/detail/${goods.idx}|}" th:text="${goods.name}"></a><br><br>
-                        <span th:text="${cartItem.color}"></span>&nbsp&#47
-                        <span th:text="${cartItem.size}"></span>
-                    </td>
-                    <td><input type="number" th:onchange="'javascript:changCnt(' + ${cartItem.idx} + ','+this+')'" th:value="${cartItem.cnt}"/></td>
-                    <td><span class="itemPrices" th:text="${goods.sellingPrice*cartItem.cnt}"></span>원</td>
-                    <td><button type="button" th:onclick="'javascript:deleteCart(' + ${cartItem.idx} + ')'">X</button></td>
-                </tr>
+            <form th:method="POST" th:action="@{/order/orderForm}" onsubmit="return validateForm()">
+ 				<div  th:each="cartItem:${cartItem}">					 
+	                <tr th:each="goods : ${cartItem.goodsDto}">
+	                    <td style="width: 10px; padding:0 0"><input type="checkbox" class="checkItem" name="orderItem" onclick="updateAllCheck()" th:value="${cartItem.idx}" checked/></td>
+	                    <td style="width: 80px;">
+	                        <ul >
+	                            <li>
+	                                <img th:src="@{|${goods.fileDtos[0].path}|}" alt="Goods Image" width="100%;">
+	                            </li>
+	                        </ul>
+	                    </td>
+	                    <td class="goodsInfo" style="text-align: left; padding:0 30px;">
+	                        <a th:href="@{|/goods/detail/${goods.idx}|}" th:text="${goods.name}"></a><br><br>
+	                        <span th:text="${cartItem.color}"></span>&nbsp&#47
+	                        <span th:text="${cartItem.size}"></span>
+	                    </td>
+	                    <td><input type="number" th:onchange="'javascript:changCnt(' + ${cartItem.idx} + ','+this+')'" th:value="${cartItem.cnt}"/></td>
+	                    <td><span class="itemPrices" th:text="${goods.sellingPrice*cartItem.cnt}"></span>원</td>
+	                    <td><button type="button" th:onclick="'javascript:deleteCart(' + ${cartItem.idx} + ')'">X</button></td>
+	                </tr>
+				 </div>
+				 <tr >
+					 <td colspan="6" style="border-bottom: none;">
+				        <div class="cartSummary" th:if="${cartNum != 0}" style="text-align: right;">
+				            <div style="padding:10px 0">
+				                <span>총 상품금액</span> <span id="totalAmount"></span>원 +
+				                <span> 배송비</span> <span id="delivery"></span> 원 =
+				                <span>결제금액</span> <span id="finalPrice"></span> 원<br>
+				            </div>
+				            <div class="pBtn">
+					            <button type="button" onclick="selectRemove()">선택한 상품 삭제하기</button>
+					            <button type="submit">선택한 상품 구매하기</button>            				
+							</div>
+				        </div>						 
+					 </td>
+				 </tr>
             </form>
         </table>
-        <div class="cartSummary" th:if="${cartNum != 0}" style="text-align: right;">
-            <div style="padding:10px 0">
-                <span>총 상품금액</span> <span id="totalAmount"></span>원 +
-                <span> 배송비</span> <span id="delivery"></span> 원 =
-                <span>결제금액</span> <span id="finalPrice"></span> 원<br>
-            </div>
-            <div class="pBtn">
-	            <button type="button" onclick="selectRemove()">선택한 상품 삭제하기</button>
-	            <button type="submit">선택한 상품 구매하기</button>            				
-			</div>
-        </div>
+
         <div th:if="${!cartItem.isEmpty()}">
             <ul class="pagination justify-content-center">
                 <li class="page-item" th:classappend="${!cartItem.hasPrevious()} ? 'disabled'">

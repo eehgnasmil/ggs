@@ -3,7 +3,7 @@
 <div th:fragment="myOrderList">
     <link rel="stylesheet" type="text/css" href="/mypage/css/myOrderList.css">	
     <h2 class="title">구매 내역</h2>
-	<div class="myModify_wrap">
+	<div class="myModify_wrap" style="margin-top: 50px;">
 			<table>
 				<tr class="tableTr">
 					<td>이미지</td>
@@ -18,7 +18,7 @@
 						<ul th:if="${cartItem.goodsDto != null}" th:each="goods : ${cartItem.goodsDto}">
 							<input type="hidden" class="products" th:value="${cartItem.idx}">						
 							<td style="width: 80px;">
-								<img th:src="@{|/img/goods/${goods.fileDtos[0].sfile}|}" alt="Goods Image" width="100%">							
+								<img th:src="@{|${goods.fileDtos[0].path}|}" alt="Goods Image" width="100%">							
 							</td>
 							<td style="text-align: left;">
 								<span style="display: block;">상품명 :  <a th:href="@{|/goods/detail/${goods.idx}|}" th:text="${goods.name}"  th:id="'product_' + ${stat.index}"></a></span><br>						
