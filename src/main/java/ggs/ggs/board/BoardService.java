@@ -29,8 +29,9 @@ public interface BoardService {
 
     List<Hashtag> getHashtagsForBoard(Long boardIdx);
 
-    // Page<BoardDto> getBoardsByHashtag(String hashtag, Pageable pageable);
     Page<BoardDto> getBoardsByHashtag(String hashtag, int page, int size);
+
+    Page<BoardDto> getBoardsByUserReplies(String id, int page);
 
 
 }

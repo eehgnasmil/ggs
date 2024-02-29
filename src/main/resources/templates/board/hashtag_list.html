@@ -37,7 +37,9 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <h2 th:text="${hashtag}">해시태그</h2>
-
+  <ul>
+    <div th:insert="~{fragments/hashtag :: hashtagPage}"></div>
+  </ul>
   <ul id="categoryList">
     <li><a href="/board/board_list?category=all">All</a></li>
     <li><a href="/board/board_list?category=hip">Hip</a></li>
@@ -48,6 +50,7 @@
   </ul>
   <script th:src="@{/board/js/hashtag_list.js}"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  </script>
 </div>
 
 </html>

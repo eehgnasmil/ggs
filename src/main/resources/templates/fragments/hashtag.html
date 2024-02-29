@@ -11,5 +11,20 @@
     <script th:src="@{/hashtag/js/hashtag.js}"></script>
 </div>
 
+<div th:fragment="hashtagPage">
+    <h2>인기 해시태그</h2>
+    <ul>
+        <li th:each="hashtag : ${topHashtags}" th:text="${hashtag}"></li>
+    </ul>
+</div>
+
+<!-- 
+<div th:fragment="hashtagPage">
+    <h2>인기 해시태그</h2>
+    <ul>
+        <li th:each="hashtagInfo : ${topHashtags}" th:text="${hashtagInfo[0].hashtag + ' ' + hashtagInfo[1]}"></li>
+    </ul>
+</div> -->
+
 </html>
 

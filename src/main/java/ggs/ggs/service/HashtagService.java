@@ -12,4 +12,7 @@ public interface HashtagService {
     List<Hashtag> getHashtagsByBoard(Board board);
 
     void updateHashtags(List<String> newHashtags, Board board);
+
+    List<Object[]> getTopHashtags(int limit);
+
 }

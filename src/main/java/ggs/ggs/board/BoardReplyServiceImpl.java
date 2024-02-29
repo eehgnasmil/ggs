@@ -1,5 +1,10 @@
 package ggs.ggs.board;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 // import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
@@ -76,5 +81,6 @@ public class BoardReplyServiceImpl implements ReplyService {
                                 .map(reply -> ReplyDto.from(reply))
                                 .collect(Collectors.toList());
         }
+
 
 }

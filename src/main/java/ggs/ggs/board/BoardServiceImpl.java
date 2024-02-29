@@ -4,7 +4,9 @@ import ggs.ggs.domain.Board;
 import ggs.ggs.domain.Hashtag;
 import ggs.ggs.domain.Member;
 import ggs.ggs.domain.MiddleTag;
+import ggs.ggs.domain.Reply;
 import ggs.ggs.dto.BoardDto;
+import ggs.ggs.dto.ReplyDto;
 import ggs.ggs.member.MemberRepository;
 import ggs.ggs.service.HashtagService;
 import jakarta.persistence.EntityNotFoundException;
@@ -34,6 +36,7 @@ public class BoardServiceImpl implements BoardService {
     private final HashtagService hashtagService;
     private final BoardTagRepository tagRepository;
     private final BoardMiddleTagRepository middleTagRepository;
+    private final BoardReplyRepository replyRepository;
 
     @Transactional
     public BoardDto createBoard(BoardDto dto, String id) {
@@ -85,99 +88,6 @@ public class BoardServiceImpl implements BoardService {
                 .collect(Collectors.toList());
     }
 
-    // @Transactional
-    // public Page<BoardDto> getMyboards(String id, int page) {
-    // Member member = memberRepository.findByid(id)
-    // .orElseThrow(() -> new UsernameNotFoundException("Member not found with ID: "
-    // + id));
-
-    // Pageable pageable = PageRequest.of(page, 5);
-    // Page<Board> boards = boardRepository.findByMember(member, pageable);
-
-    // return boards.map(board -> {
-    // BoardDto dto = new BoardDto(board);
-
-    // String html = board.getDetail();
-    // Document doc = Jsoup.parse(html);
-    // Elements imgElements = doc.select("img");
-
-    // for (Element imgElement : imgElements) {
-    // String imageUrl = imgElement.attr("src");
-    // dto.getImageUrls().add(imageUrl);
-    // }
-
-    // return dto;
-    // });
-    // }
-
-    // @Transactional
-    // public List<BoardDto> getAllBoard(String category, String bsort) {
-    // List<Board> boards = new ArrayList<>();
-    // if ("new".equals(bsort)) {
-    // boards = boardRepository.findTop10ByOrderByModifiedDateDesc();
-    // } else if ("view".equals(bsort)) {
-    // boards = boardRepository.findTop10ByOrderByViewcountDesc();
-    // } else if ("like".equals(bsort)) {
-    // boards = boardRepository.findTop10ByOrderByLikesCountDesc();
-    // }
-    // // 이제 Board 객체를 BoardDto 객체로 변환하고 반환합니다.
-    // List<BoardDto> boardDtos = boards.stream()
-    // .map(board -> {
-    // BoardDto boardDto = new BoardDto(board);
-
-    // // HTML 파싱을 통해 이미지 URL 추출
-    // String html = board.getDetail();
-    // Document doc = Jsoup.parse(html);
-    // Elements imgElements = doc.select("img");
-    // for (Element imgElement : imgElements) {
-    // String imageUrl = imgElement.attr("src");
-    // boardDto.getImageUrls().add(imageUrl);
-    // }
-
-    // // 해시태그 설정
-    // List<Hashtag> hashtags = getHashtagsForBoard(board.getIdx());
-    // List<String> hashtagNames =
-    // hashtags.stream().map(Hashtag::getHashtag).collect(Collectors.toList());
-    // boardDto.setHashtags(hashtagNames);
-
-    // return boardDto;
-    // }).collect(Collectors.toList());
-    // return boardDtos;
-    // }
-
-    // @Transactional(readOnly = true)
-    // public Page<BoardDto> getAllBoards(String category, String bsort, Pageable
-    // pageable) {
-    // Page<Board> boards = "all".equals(category) ?
-    // boardRepository.findAll(pageable)
-    // : boardRepository.findByCategory(category, pageable);
-
-    // List<BoardDto> boardDtos = boards.stream()
-    // .sorted(getComparator(bsort))
-    // .map(board -> {
-    // BoardDto boardDto = new BoardDto(board);
-
-    // String html = board.getDetail();
-    // Document doc = Jsoup.parse(html);
-    // Elements imgElements = doc.select("img");
-
-    // for (Element imgElement : imgElements) {
-    // String imageUrl = imgElement.attr("src");
-    // boardDto.getImageUrls().add(imageUrl);
-    // }
-
-    // // 여기에서 해시태그를 설정합니다.
-    // List<Hashtag> hashtags = getHashtagsForBoard(board.getIdx());
-    // List<String> hashtagNames =
-    // hashtags.stream().map(Hashtag::getHashtag).collect(Collectors.toList());
-    // boardDto.setHashtags(hashtagNames);
-
-    // return boardDto;
-    // }).collect(Collectors.toList());
-
-    // return new PageImpl<>(boardDtos, pageable, boards.getTotalElements());
-    // }
-
     @Transactional
     public Comparator<Board> getComparator(String bsort) {
         if ("new".equals(bsort)) {
@@ -212,44 +122,6 @@ public class BoardServiceImpl implements BoardService {
         return hashtags != null ? hashtags : Collections.emptyList();
     }
 
-    // @Transactional
-    // public Page<BoardDto> getBoardsByHashtag(String hashtag, int page, int size)
-    // {
-    // Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC,
-    // "board.modifiedDate");
-    // Hashtag targetHashtag = tagRepository.findByHashtag(hashtag)
-    // .orElseThrow(() -> new IllegalArgumentException("해시태그를 찾을 수 없습니다: " +
-    // hashtag));
-    // Page<MiddleTag> middleTags =
-    // middleTagRepository.findByHashtagOrderByBoardModifiedDateDesc(targetHashtag,
-    // pageable);
-
-    // List<BoardDto> boardDtos = middleTags.stream()
-    // .map(MiddleTag::getBoard)
-    // .filter(Objects::nonNull)
-    // .map(board -> {
-    // BoardDto boardDto = new BoardDto(board);
-
-    // String html = board.getDetail();
-    // Document doc = Jsoup.parse(html);
-    // Elements imgElements = doc.select("img");
-
-    // for (Element imgElement : imgElements) {
-    // String imageUrl = imgElement.attr("src");
-    // boardDto.getImageUrls().add(imageUrl);
-    // }
-
-    // List<String> hashtagNames = middleTagRepository.findByBoard(board).stream()
-    // .map(MiddleTag::getHashtagName)
-    // .collect(Collectors.toList());
-    // boardDto.setHashtags(hashtagNames);
-
-    // return boardDto;
-    // }).collect(Collectors.toList());
-
-    // return new PageImpl<>(boardDtos, pageable, middleTags.getTotalElements());
-    // }
-
     @Transactional
     public Page<BoardDto> getMyboards(String id, int page) {
         Member member = memberRepository.findByid(id)
@@ -259,6 +131,23 @@ public class BoardServiceImpl implements BoardService {
         Page<Board> boards = boardRepository.findByMember(member, pageable);
 
         return boards.map(this::convertToBoardDto);
+    }
+
+    @Transactional
+    public Page<BoardDto> getBoardsByUserReplies(String id, int page) {
+        Member member = memberRepository.findByid(id)
+                .orElseThrow(() -> new UsernameNotFoundException("Member not found with ID: " + id));
+
+        List<Reply> replies = replyRepository.findByMember(member);
+        List<Board> boards = replies.stream().map(Reply::getBoard).distinct().collect(Collectors.toList());
+
+        int start = page * 5;
+        int end = Math.min((start + 5), boards.size());
+        List<Board> pagedBoards = boards.subList(start, end);
+
+        return new PageImpl<>(pagedBoards.stream().map(this::convertToBoardDto).collect(Collectors.toList()),
+                PageRequest.of(page, 5),
+                boards.size());
     }
 
     @Transactional
@@ -272,7 +161,7 @@ public class BoardServiceImpl implements BoardService {
         List<BoardDto> boardDtos = middleTags.stream()
                 .map(MiddleTag::getBoard)
                 .filter(Objects::nonNull)
-                .map(this::convertToBoardDto) 
+                .map(this::convertToBoardDto)
                 .collect(Collectors.toList());
 
         return new PageImpl<>(boardDtos, pageable, middleTags.getTotalElements());
