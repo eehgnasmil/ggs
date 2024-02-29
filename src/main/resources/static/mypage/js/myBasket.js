@@ -1,17 +1,18 @@
 $(document).ready(function () {
     calculateOrderAmount();
 })
-$(".checkItem").on("change", function() {
+$(".checkItem").on("change", function () {
     calculateOrderAmount();
 });
-function selectRemove(){
-    var selectedItems  = document.querySelectorAll('input[name="orderItem"]:checked');
+
+function selectRemove() {
+    var selectedItems = document.querySelectorAll('input[name="orderItem"]:checked');
     var cartItems = Array.from(selectedItems).map(item => item.value);
 
-    if(cartItems.length == 0){
+    if (cartItems.length == 0) {
         alert("상품을 선택해주십시오")
         return false;
-    }else{
+    } else {
         $.ajax({
             type: 'POST',
             data: JSON.stringify(cartItems),
@@ -31,6 +32,7 @@ function selectRemove(){
     }
 
 }
+
 function calculateOrderAmount() {
     // 체크된 상품의 가격 합산
     var totalAmount = 0;
@@ -53,17 +55,17 @@ function calculateOrderAmount() {
     }
 }
 
-function validateForm(){
-    var selectedItems  = document.querySelectorAll('input[name="orderItem"]:checked');
+function validateForm() {
+    var selectedItems = document.querySelectorAll('input[name="orderItem"]:checked');
     var orderItemsValue = Array.from(selectedItems).map(item => item.value);
 
-    if(orderItemsValue.length == 0){
+    if (orderItemsValue.length == 0) {
         alert("상품을 선택해주십시오")
         return false;
     }
 }
 
-function deleteCart(idx){
+function deleteCart(idx) {
     $.ajax({
         type: 'POST',
         data: {
@@ -83,24 +85,26 @@ function deleteCart(idx){
     });
 }
 
-function changCnt(idx,cnt){
-    if(cnt<1){
+function changCnt(idx, input) {
+    var cnt = input.value
+
+    if (cnt < 1) {
         alert("최소 한개 이상 선택해주세요")
-        history.go(0);
+        input.value = 1
         return
     }
     $.ajax({
         type: 'POST',
         data: {
             "ciIdx": idx,
-            "cnt":cnt
+            "cnt": cnt
         },
         url: "/order/changeCnt",
         beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
         },
         success: function (json) {
-            history.go(0);
+            document.getElementById()
         },
         error: function () {
             console.log("error");
@@ -108,18 +112,20 @@ function changCnt(idx,cnt){
     });
 }
 
-function allCheck(allCheckId){
+
+
+function allCheck(allCheckId) {
     var checkItem = $(".checkItem")
-    for(var i=0; i<checkItem.length;i++){
+    for (var i = 0; i < checkItem.length; i++) {
         checkItem[i].checked = allCheckId.checked;
     }
 }
 
-function updateAllCheck(){
+function updateAllCheck() {
     var allCheckId = document.getElementById("allCheckId")
     var checkItem = $(".checkItem")
-    for(var i=0; i<checkItem.length;i++){
-        if(!checkItem[i].checked){
+    for (var i = 0; i < checkItem.length; i++) {
+        if (!checkItem[i].checked) {
             allCheckId.checked = false;
             return
         }

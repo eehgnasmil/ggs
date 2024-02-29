@@ -1,0 +1,8 @@
+.myModify_wrap table{width: 100%; list-style: none;}
+.myModify_wrap table tr{border-top: 1px solid black;}
+.tableTr{text-align: center;}
+.myModify_wrap table tr td{vertical-align: middle; border-bottom: 1px solid black; padding:10px 20px; text-align: center;}
+.goodsInfo{width: 50%;}
+.myModify_wrap table tr td input{width: 50px; margin:0 auto;}
+.pBtn {margin-top: 50px;}
+.pBtn button{background: black; color: white; padding:5px 20px; border-radius: 5px; border:none;}

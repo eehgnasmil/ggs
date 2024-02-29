@@ -1,4 +1,4 @@
-button{background:black; color:white; border:none; border-radius: 5px; padding:3px 10px;}
+button{background:black; color:white; border:none; border-radius: 5px; padding:3px 10px; margin-left:20px;}
 label{font-weight: 600;}
 label::after{content: " | ";}
 input{outline: none; border:none; background: none;}
@@ -9,6 +9,5 @@ input{outline: none; border:none; background: none;}
 .modifyNickForm{display: none;}
 .postAddressM{display: none;}
 .myModify_wrap{border: 2px solid black; border-radius: 20px; padding:40px 60px 60px 60px;}
-.mBtn{margin-top: 10px;}
 .postAddressM input{width: 50%; height: 30px;}
 .p10{font-size: 10px; color: red;}
